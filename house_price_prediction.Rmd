@@ -1,29 +1,99 @@
+
 ---
-title: "regression_predict_house_price"
+title: "House Price Regression Analysis"
+author: "Your Name"
+date: "`r Sys.Date()`"
 output: html_document
-date: "2025-02-22"
 ---
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
-## R Markdown
+chooseCRANmirror(graphics = FALSE, ind = 1)
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# Install required packages if not already installed
+packages <- c("ggplot2", "mgcv", "MASS", "caret", "knitr")
+install_if_missing <- packages[!(packages %in% installed.packages()[,"Package"])]
+if(length(install_if_missing)) install.packages(install_if_missing)
 
-```{r cars}
-summary(cars)
-```
+# Load libraries
+library(ggplot2)
+library(mgcv)    # Generalized Additive Models (GAM)
+library(MASS)    # Stepwise regression
+library(caret)   # Train-test split, cross-validation
+library(knitr)   # For markdown table formatting
 
-## Including Plots
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+# Load dataset (update filename if needed)
+df <- read.csv("kc_house_data.csv", stringsAsFactors = TRUE)
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Select relevant features (modify based on available columns)
+features <- c("bedrooms", "bathrooms", "sqft_living", "sqft_lot", "floors", 
+              "condition", "grade", "sqft_above", "sqft_basement", "yr_built")
+target <- "price"
+
+# Remove missing values
+df <- df[complete.cases(df[, c(features, target)]), ]
+
+# Split dataset (80% train, 20% test)
+set.seed(42)
+trainIndex <- createDataPartition(df$price, p = 0.8, list = FALSE)
+trainData <- df[trainIndex, ]
+testData <- df[-trainIndex, ]
+
+
+lin_model <- lm(price ~ ., data = trainData[, c(features, target)])
+summary(lin_model)
+
+# Predictions & RMSE
+lin_pred <- predict(lin_model, newdata = testData)
+lin_rmse <- sqrt(mean((testData$price - lin_pred)^2))
+cat("Linear Regression RMSE:", round(lin_rmse, 2), "\n")
+
+
+poly_model <- lm(price ~ poly(sqft_living, 2) + poly(sqft_lot, 2) + 
+                   poly(bedrooms, 2) + poly(bathrooms, 2) + 
+                   poly(floors, 2) + poly(condition, 2) + 
+                   poly(grade, 2) + poly(sqft_above, 2) + 
+                   poly(sqft_basement, 2) + poly(yr_built, 2), data = trainData)
+
+# Predictions & RMSE
+poly_pred <- predict(poly_model, newdata = testData)
+poly_rmse <- sqrt(mean((testData$price - poly_pred)^2))
+cat("Polynomial Regression RMSE:", round(poly_rmse, 2), "\n")
+
+gam_model <- gam(price ~ s(sqft_living) + s(sqft_lot) + 
+                   bedrooms + bathrooms + 
+                   floors + condition + 
+                   grade + sqft_above + 
+                   sqft_basement + yr_built, 
+                 data = trainData)
+
+# Predictions & RMSE
+gam_pred <- predict(gam_model, newdata = testData)
+gam_rmse <- sqrt(mean((testData$price - gam_pred)^2))
+cat("GAM Regression RMSE:", round(gam_rmse, 2), "\n")
+
+par(mfrow = c(1, 3))
+plot(testData$price, lin_pred - testData$price, col = "blue", pch = 20, main = "Linear Regression Residuals")
+plot(testData$price, poly_pred - testData$price, col = "red", pch = 20, main = "Polynomial Regression Residuals")
+plot(testData$price, gam_pred - testData$price, col = "green", pch = 20, main = "GAM Regression Residuals")
+abline(h = 0, col = "black", lty = 2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
