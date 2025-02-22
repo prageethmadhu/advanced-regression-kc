@@ -1,0 +1,156 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}  % For better code formatting
+\usepackage{xcolor} % For custom colors
+
+% Modern Beamer Theme
+\usetheme{metropolis}  % Sleek, modern look
+\usecolortheme{spruce}  % Greenish accent
+\setbeamertemplate{navigation symbols}{}  % Removes navigation symbols
+\setbeamertemplate{frame footer}{\insertsection}  % Section name in footer
+
+% Progress Bar
+\setbeamertemplate{headline}{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex]{palette primary}
+    \insertsectionnavigationhorizontal{\paperwidth}{}{}
+  \end{beamercolorbox}
+}
+
+% Code Block Styling
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  backgroundcolor=\color{black!5},
+  frame=single,
+  breaklines=true
+}
+
+\title{Regression and Prediction}
+\author{Based on Practical Statistics for Data Scientists}
+\date{\today}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Slide 1: Introduction
+\begin{frame}{Introduction}
+    \begin{itemize}
+        \item \textbf{Regression models} describe relationships between variables.
+        \item Used for \textcolor{blue}{prediction and inference} in statistics and machine learning.
+        \item This presentation covers:
+        \begin{enumerate}
+            \item \textbf{Types of regression}
+            \item \textbf{Implementation in R and Python}
+            \item \textbf{Model evaluation techniques}
+        \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+% Slide 2: Types of Regression
+\begin{frame}{Types of Regression}
+    \begin{itemize}
+        \item \textbf{Simple Linear Regression}: One predictor variable.
+        \item \textbf{Multiple Linear Regression}: Multiple predictor variables.
+        \item \textbf{Polynomial Regression}: Models nonlinear relationships.
+        \item \textbf{Generalized Additive Models (GAMs)}: Flexible smoothing techniques.
+    \end{itemize}
+\end{frame}
+
+% Slide 3: Simple Linear Regression (Equation)
+\begin{frame}{Simple Linear Regression}
+    \textbf{Equation:}
+    \[
+    Y = b_0 + b_1X + e
+    \]
+    \begin{itemize}
+        \item \( Y \) = dependent variable (target)
+        \item \( X \) = independent variable (feature)
+        \item \( b_0 \) = intercept
+        \item \( b_1 \) = slope
+        \item \( e \) = error term
+    \end{itemize}
+\end{frame}
+
+% Slide 4: Simple Linear Regression (Python & R)
+\begin{frame}[fragile]{Simple Linear Regression in Python and R}
+    \textbf{Python Implementation}
+    \begin{lstlisting}[language=Python]
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit(X_train[['sqft_living']], y_train)
+y_pred = model.predict(X_test[['sqft_living']])
+    \end{lstlisting}
+
+    \textbf{R Implementation}
+    \begin{lstlisting}[language=R]
+model <- lm(price ~ sqft_living, data=trainData)
+predict(model, newdata=testData)
+    \end{lstlisting}
+\end{frame}
+
+% Slide 5: Multiple Linear Regression
+\begin{frame}{Multiple Linear Regression}
+    \textbf{Equation:}
+    \[
+    Y = b_0 + b_1X_1 + b_2X_2 + ... + b_pX_p + e
+    \]
+    \begin{itemize}
+        \item Extends simple linear regression to multiple predictors.
+        \item Example: \textcolor{blue}{Predicting house prices using multiple features}.
+    \end{itemize}
+\end{frame}
+
+% Slide 6: Multiple Regression (Python & R)
+\begin{frame}[fragile]{Multiple Regression in Python and R}
+    \textbf{Python Implementation}
+    \begin{lstlisting}[language=Python]
+model = LinearRegression()
+model.fit(X_train[['sqft_living', 'bedrooms', 'bathrooms']], y_train)
+    \end{lstlisting}
+
+    \textbf{R Implementation}
+    \begin{lstlisting}[language=R]
+model <- lm(price ~ sqft_living + bedrooms + bathrooms, data=trainData)
+    \end{lstlisting}
+\end{frame}
+
+% Slide 7: Model Evaluation
+\begin{frame}{Model Evaluation}
+    \begin{itemize}
+        \item \textbf{R-squared}: Measures how well the model fits the data.
+        \item \textbf{RMSE (Root Mean Squared Error)}: Measures prediction accuracy.
+        \item \textbf{Cross-Validation}: Validates model performance on unseen data.
+    \end{itemize}
+\end{frame}
+
+% Slide 8: Mini-Project Requirement
+\begin{frame}{Mini-Project Requirement}
+    Each student must:
+    \begin{itemize}
+        \item Choose a \textcolor{blue}{real-world dataset}.
+        \item Apply at least two \textbf{regression techniques}.
+        \item Evaluate model performance (\textbf{R-squared, RMSE}).
+        \item Provide \textbf{insights from analysis}.
+    \end{itemize}
+\end{frame}
+
+% Slide 9: Conclusion
+\begin{frame}{Conclusion}
+    \begin{itemize}
+        \item Regression is a fundamental statistical technique for prediction.
+        \item Various types exist, from simple to complex (\textbf{GAMs}).
+        \item \textcolor{blue}{Model evaluation ensures robust predictions}.
+    \end{itemize}
+    
+    \textbf{Questions?}
+\end{frame}
+
+\end{document}
