@@ -3,13 +3,13 @@
 \usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage{listings}  % For better code formatting
-\usepackage{xcolor} % For custom colors
+\usepackage{xcolor} % Custom colors
 
-% Modern Beamer Theme
-\usetheme{metropolis}  % Sleek, modern look
-\usecolortheme{spruce}  % Greenish accent
+% Beamer Theme
+\usetheme{metropolis}  % Clean and modern look
+\usecolortheme{spruce}  % Subtle green color
 \setbeamertemplate{navigation symbols}{}  % Removes navigation symbols
-\setbeamertemplate{frame footer}{\insertsection}  % Section name in footer
+\setbeamertemplate{frame footer}{\insertsection}  % Show section in footer
 
 % Progress Bar
 \setbeamertemplate{headline}{
@@ -42,45 +42,38 @@
 
 % Slide 1: Introduction
 \begin{frame}{Introduction}
+    \textbf{What is Regression?}
     \begin{itemize}
-        \item \textbf{Regression models} describe relationships between variables.
-        \item Used for \textcolor{blue}{prediction and inference} in statistics and machine learning.
-        \item This presentation covers:
-        \begin{enumerate}
-            \item \textbf{Types of regression}
-            \item \textbf{Implementation in R and Python}
-            \item \textbf{Model evaluation techniques}
-        \end{enumerate}
+        \item Regression models describe relationships between variables.
+        \item Used for \textcolor{blue}{prediction and inference}.
     \end{itemize}
+    \textbf{Objectives:}
+    \begin{enumerate}
+        \item Explain regression concepts.
+        \item Demonstrate techniques in R and Python.
+        \item Apply regression to real-world datasets.
+    \end{enumerate}
 \end{frame}
 
 % Slide 2: Types of Regression
 \begin{frame}{Types of Regression}
     \begin{itemize}
-        \item \textbf{Simple Linear Regression}: One predictor variable.
-        \item \textbf{Multiple Linear Regression}: Multiple predictor variables.
-        \item \textbf{Polynomial Regression}: Models nonlinear relationships.
-        \item \textbf{Generalized Additive Models (GAMs)}: Flexible smoothing techniques.
+        \item \textbf{Simple Linear Regression}
+        \item \textbf{Multiple Linear Regression}
+        \item \textbf{Polynomial Regression}
+        \item \textbf{Spline Regression}
+        \item \textbf{Generalized Additive Models (GAMs)}
+        \item \textbf{Cross-Validation for Model Evaluation}
+        \item \textbf{Weighted Regression}
     \end{itemize}
 \end{frame}
 
-% Slide 3: Simple Linear Regression (Equation)
-\begin{frame}{Simple Linear Regression}
+% Slide 3: Simple Linear Regression
+\begin{frame}[fragile]{Simple Linear Regression}
     \textbf{Equation:}
     \[
-    Y = b_0 + b_1X + e
+    Y = b_0 + b_1 X + e
     \]
-    \begin{itemize}
-        \item \( Y \) = dependent variable (target)
-        \item \( X \) = independent variable (feature)
-        \item \( b_0 \) = intercept
-        \item \( b_1 \) = slope
-        \item \( e \) = error term
-    \end{itemize}
-\end{frame}
-
-% Slide 4: Simple Linear Regression (Python & R)
-\begin{frame}[fragile]{Simple Linear Regression in Python and R}
     \textbf{Python Implementation}
     \begin{lstlisting}[language=Python]
 from sklearn.linear_model import LinearRegression
@@ -88,7 +81,6 @@ model = LinearRegression()
 model.fit(X_train[['sqft_living']], y_train)
 y_pred = model.predict(X_test[['sqft_living']])
     \end{lstlisting}
-
     \textbf{R Implementation}
     \begin{lstlisting}[language=R]
 model <- lm(price ~ sqft_living, data=trainData)
@@ -96,61 +88,91 @@ predict(model, newdata=testData)
     \end{lstlisting}
 \end{frame}
 
-% Slide 5: Multiple Linear Regression
-\begin{frame}{Multiple Linear Regression}
+% Slide 4: Multiple Linear Regression
+\begin{frame}[fragile]{Multiple Linear Regression}
     \textbf{Equation:}
     \[
-    Y = b_0 + b_1X_1 + b_2X_2 + ... + b_pX_p + e
+    Y = b_0 + b_1X_1 + b_2X_2 + \dots + b_pX_p + e
     \]
-    \begin{itemize}
-        \item Extends simple linear regression to multiple predictors.
-        \item Example: \textcolor{blue}{Predicting house prices using multiple features}.
-    \end{itemize}
-\end{frame}
-
-% Slide 6: Multiple Regression (Python & R)
-\begin{frame}[fragile]{Multiple Regression in Python and R}
     \textbf{Python Implementation}
     \begin{lstlisting}[language=Python]
 model = LinearRegression()
 model.fit(X_train[['sqft_living', 'bedrooms', 'bathrooms']], y_train)
     \end{lstlisting}
+\end{frame}
 
-    \textbf{R Implementation}
-    \begin{lstlisting}[language=R]
-model <- lm(price ~ sqft_living + bedrooms + bathrooms, data=trainData)
+% Slide 5: Polynomial and Spline Regression
+\begin{frame}[fragile]{Polynomial & Spline Regression}
+    \textbf{When to Use?}
+    \begin{itemize}
+        \item When the relationship is **nonlinear**.
+        \item When flexibility is needed for **curved data trends**.
+    \end{itemize}
+    \textbf{Python Implementation}
+    \begin{lstlisting}[language=Python]
+from sklearn.preprocessing import PolynomialFeatures
+poly = PolynomialFeatures(degree=2)
+X_poly = poly.fit_transform(X_train[['sqft_living']])
+model = LinearRegression().fit(X_poly, y_train)
     \end{lstlisting}
 \end{frame}
 
-% Slide 7: Model Evaluation
-\begin{frame}{Model Evaluation}
+% Slide 6: Model Selection and Diagnostics
+\begin{frame}{Model Selection and Diagnostics}
+    \textbf{How to Evaluate a Model?}
     \begin{itemize}
-        \item \textbf{R-squared}: Measures how well the model fits the data.
-        \item \textbf{RMSE (Root Mean Squared Error)}: Measures prediction accuracy.
-        \item \textbf{Cross-Validation}: Validates model performance on unseen data.
+        \item **Cross-validation** - Prevents overfitting.
+        \item **Residual Analysis** - Identifies errors.
+        \item **Variance Inflation Factor (VIF)** - Detects multicollinearity.
     \end{itemize}
 \end{frame}
 
-% Slide 8: Mini-Project Requirement
+% Slide 7: Prediction & Extrapolation Risks
+\begin{frame}[fragile]{Prediction and Extrapolation Risks}
+    \textbf{Prediction Using Regression}
+    \begin{lstlisting}[language=Python]
+predicted_price = model.predict(new_house_data)
+    \end{lstlisting}
+    \textbf{Extrapolation:}
+    \begin{itemize}
+        \item Predicting values \textcolor{red}{outside the observed range}.
+        \item Can lead to inaccurate results.
+    \end{itemize}
+\end{frame}
+
+% Slide 8: Confidence and Prediction Intervals
+\begin{frame}[fragile]{Confidence & Prediction Intervals}
+    \textbf{Confidence Interval (CI) vs Prediction Interval (PI)}
+    \begin{itemize}
+        \item CI: Expected range of the mean response.
+        \item PI: Expected range of a new observation.
+    \end{itemize}
+    \textbf{Python Implementation}
+    \begin{lstlisting}[language=Python]
+import statsmodels.api as sm
+predictions = sm.OLS(y_train, X_train).fit().get_prediction(X_test)
+predictions.conf_int()
+    \end{lstlisting}
+\end{frame}
+
+% Slide 9: Mini-Project Requirement
 \begin{frame}{Mini-Project Requirement}
-    Each student must:
+    \textbf{Each Student Must:}
     \begin{itemize}
-        \item Choose a \textcolor{blue}{real-world dataset}.
-        \item Apply at least two \textbf{regression techniques}.
+        \item Select a \textcolor{blue}{real-world dataset}.
+        \item Apply at least \textbf{two regression techniques}.
         \item Evaluate model performance (\textbf{R-squared, RMSE}).
-        \item Provide \textbf{insights from analysis}.
     \end{itemize}
 \end{frame}
 
-% Slide 9: Conclusion
+% Slide 10: Conclusion
 \begin{frame}{Conclusion}
     \begin{itemize}
-        \item Regression is a fundamental statistical technique for prediction.
-        \item Various types exist, from simple to complex (\textbf{GAMs}).
-        \item \textcolor{blue}{Model evaluation ensures robust predictions}.
+        \item Regression is a **powerful tool for prediction**.
+        \item Multiple approaches exist from **simple to complex models**.
+        \item Proper **evaluation ensures better predictions**.
     \end{itemize}
-    
-    \textbf{Questions?}
+    \textbf{Questions? Let's Discuss!}
 \end{frame}
 
 \end{document}
