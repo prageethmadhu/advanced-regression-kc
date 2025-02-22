@@ -22,9 +22,9 @@ library(mgcv)    # Generalized Additive Models (GAM)
 library(MASS)    # Stepwise regression
 library(caret)   # Train-test split, cross-validation
 library(knitr)   # For markdown table formatting
+```
 
-
-
+```{r}
 # Load dataset (update filename if needed)
 df <- read.csv("kc_house_data.csv", stringsAsFactors = TRUE)
 
@@ -80,7 +80,7 @@ plot(testData$price, lin_pred - testData$price, col = "blue", pch = 20, main = "
 plot(testData$price, poly_pred - testData$price, col = "red", pch = 20, main = "Polynomial Regression Residuals")
 plot(testData$price, gam_pred - testData$price, col = "green", pch = 20, main = "GAM Regression Residuals")
 abline(h = 0, col = "black", lty = 2)
-
+```
 
 
 
