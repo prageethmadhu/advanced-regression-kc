@@ -7,12 +7,12 @@
 				\item \textbf{Key Insight}: Diagnostics ensure robust housing predictions
 			\end{itemize}
 			\begin{lstlisting}
-				# Python (p. 178)
-				from statsmodels.stats.outliers_influence import OLSInfluence
-				house_98105 = house[house['ZipCode'] == 98105]
-				model = smf.ols('AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms + Bedrooms + BldgGrade', data=house_98105).fit()
-				influence = OLSInfluence(model)
-				sresiduals = influence.resid_studentized
+# Python (p. 178)
+from statsmodels.stats.outliers_influence import OLSInfluence
+house_98105 = house[house['ZipCode'] == 98105]
+model = smf.ols('AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms + Bedrooms + BldgGrade', data=house_98105).fit()
+influence = OLSInfluence(model)
+sresiduals = influence.resid_studentized
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}

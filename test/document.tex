@@ -74,15 +74,17 @@
 				\item Assumes linearity and independence—foundation of regression
 			\end{itemize}
 			\begin{lstlisting}
-				# R (p. 152 adapted)
-				simple_lm <- lm(AdjSalePrice ~ SqFtTotLiving, data = house)
-				# Output: b_0 ~ base, b_1 ~ price/sq ft
+# R (p. 152 adapted)
+simple_lm <- lm(AdjSalePrice ~ SqFtTotLiving, data = house)
+# Output: b_0 ~ base, b_1 ~ price/sq ft
 			\end{lstlisting}
 			\column{0.4\textwidth}
-			\begin{figure}
-				\includegraphics[width=\textwidth]{figure4-2-placeholder.pdf}
-				\caption{Price vs. Size Fit}
-			\end{figure}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{regres1.jpg} % Use .png, .jpg, or .jpeg instead of .pdf
+			\caption{Price vs. Size Fit}
+			\label{fig:price_vs_size_fit}
+		\end{figure}
 		\end{columns}
 	\end{frame}
 	
@@ -95,13 +97,13 @@
 				\item \textbf{Key Insight}: Positive slope shows larger homes fetch higher prices
 			\end{itemize}
 			\begin{lstlisting}
-				# Python (p. 152 adapted)
-				from sklearn.linear_model import LinearRegression
-				predictors = ['SqFtTotLiving']
-				outcome = 'AdjSalePrice'
-				simple_lm = LinearRegression()
-				simple_lm.fit(house[predictors], house[outcome])
-				# Example: Intercept ~ base, Coef ~ $ per sq ft
+# Python (p. 152 adapted)
+from sklearn.linear_model import LinearRegression
+predictors = ['SqFtTotLiving']
+outcome = 'AdjSalePrice'
+simple_lm = LinearRegression()
+simple_lm.fit(house[predictors], house[outcome])
+# Example: Intercept ~ base, Coef ~ $ per sq ft
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -110,9 +112,10 @@
 		\end{columns}
 	\end{frame}
 	
-	\begin{frame}{Least Squares Theory}
+	\begin{frame}{Finding the Best Fit: Least Squares}
 		\begin{itemize}
-			\item \textbf{Theory (p. 148)}: Finds the line minimizing residual sum of squares: $\sum_{i=1}^n (Y_i - \hat{Y}_i)^2$
+			 \item \textbf{How do we draw that line?} We minimize the mess—sum of squared errors
+			\item \textbf{Theory}: Finds the line minimizing residual sum of squares: $\sum_{i=1}^n (Y_i - \hat{Y}_i)^2$
 			\item \textbf{How}: Adjusts $b_0$ and $b_1$ to reduce prediction errors—optimal for linear fits
 			\item \textbf{History}: Legendre (1805) and Gauss; computationally efficient but outlier-sensitive in small datasets
 		\end{itemize}
@@ -121,19 +124,19 @@
 	% Section 2: Expanding the Scope
 	\section{Expanding the Scope}
 	
-	\begin{frame}[fragile]{Multiple Linear Regression: Theory \& R}
+	\begin{frame}[fragile]{More Clues: Multiple Linear Regression}
 		\begin{columns}
 			\column{0.6\textwidth}
 			\begin{itemize}
-				\item \textbf{Theory (p. 150)}: Extends to multiple predictors: $Y = b_0 + b_1X_1 + b_2X_2 + \dots + e$
+				\item \textbf{Theory}: Extends to multiple predictors: $Y = b_0 + b_1X_1 + b_2X_2 + \dots + e$
 				\item \textbf{Power}: Captures combined effects—size, lot, bedrooms—assuming linearity
 				\item \textbf{Use}: Explains complex housing dynamics
 			\end{itemize}
 			\begin{lstlisting}
-				# R (p. 152)
-				house_lm <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
-				Bedrooms + BldgGrade, data = house)
-				# Coefs: SqFtTotLiving = 228.831, Bedrooms = -47769.955
+# R (p. 152)
+house_lm <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+Bedrooms + BldgGrade, data = house)
+# Coefs: SqFtTotLiving = 228.831, Bedrooms = -47769.955
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -151,11 +154,11 @@
 				\item \textbf{Key Insight}: Negative bedroom coef suggests smaller rooms hurt value
 			\end{itemize}
 			\begin{lstlisting}
-				# Python (p. 152)
-				predictors = ['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']
-				house_lm = LinearRegression()
-				house_lm.fit(house[predictors], house[outcome])
-				# Intercept: -521871.168, Bedrooms: -47769.955
+# Python (p. 152)
+predictors = ['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']
+house_lm = LinearRegression()
+house_lm.fit(house[predictors], house[outcome])
+# Intercept: -521871.168, Bedrooms: -47769.955
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -173,9 +176,9 @@
 				\item \textbf{Example}: Single-family vs. Townhouse effects
 			\end{itemize}
 			\begin{lstlisting}
-				# R (p. 164)
-				prop_type_dummies <- model.matrix(~ PropertyType - 1, data = house)
-				# Output: 1 for each type present
+# R (p. 164)
+prop_type_dummies <- model.matrix(~ PropertyType - 1, data = house)
+# Output: 1 for each type present
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -193,10 +196,10 @@
 				\item \textbf{Key Insight}: Townhouses may differ from single-family homes
 			\end{itemize}
 			\begin{lstlisting}
-				# Python (p. 166 adapted)
-				import pandas as pd
-				X = pd.get_dummies(house['PropertyType'], drop_first=True)
-				# Drops first level (e.g., Multiplex) as reference
+# Python (p. 166 adapted)
+import pandas as pd
+X = pd.get_dummies(house['PropertyType'], drop_first=True)
+# Drops first level (e.g., Multiplex) as reference
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -214,11 +217,11 @@
 				\item \textbf{Advantage}: Flexible fit without overfitting like high-order polynomials
 			\end{itemize}
 			\begin{lstlisting}
-				# R (p. 190)
-				library(splines)
-				knots <- quantile(house_98105$SqFtTotLiving, p = c(.25, .5, .75))
-				lm_spline <- lm(AdjSalePrice ~ bs(SqFtTotLiving, knots = knots, degree = 3) +
-				SqFtLot + Bathrooms + Bedrooms + BldgGrade, data = house_98105)
+# R (p. 190)
+library(splines)
+knots <- quantile(house_98105$SqFtTotLiving, p = c(.25, .5, .75))
+lm_spline <- lm(AdjSalePrice ~ bs(SqFtTotLiving, knots = knots, degree = 3) +
+SqFtLot + Bathrooms + Bedrooms + BldgGrade, data = house_98105)
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{figure}
@@ -237,10 +240,10 @@
 				\item \textbf{Key Insight}: Better matches small vs. large home value shifts
 			\end{itemize}
 			\begin{lstlisting}
-				# Python (p. 190)
-				import statsmodels.formula.api as smf
-				formula = 'AdjSalePrice ~ bs(SqFtTotLiving, df=6, degree=3) + SqFtLot + Bathrooms + Bedrooms + BldgGrade'
-				model_spline = smf.ols(formula=formula, data=house_98105).fit()
+# Python (p. 190)
+import statsmodels.formula.api as smf
+formula = 'AdjSalePrice ~ bs(SqFtTotLiving, df=6, degree=3) + SqFtLot + Bathrooms + Bedrooms + BldgGrade'
+model_spline = smf.ols(formula=formula, data=house_98105).fit()
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -278,12 +281,12 @@
 				\item \textbf{Goal}: Optimal housing model without overkill
 			\end{itemize}
 			\begin{lstlisting}
-				# R (p. 157)
-				library(MASS)
-				house_full <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
-				Bedrooms + BldgGrade + PropertyType, data = house)
-				step <- stepAIC(house_full, direction = "both")
-				# Drops less impactful vars
+# R (p. 157)
+library(MASS)
+house_full <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+Bedrooms + BldgGrade + PropertyType, data = house)
+step <- stepAIC(house_full, direction = "both")
+# Drops less impactful vars
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -301,14 +304,14 @@
 				\item \textbf{Key Insight}: Reduces noise, enhances prediction
 			\end{itemize}
 			\begin{lstlisting}
-				# Python (p. 158 adapted)
-				from dmba import stepwise_selection
-				predictors = ['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']
-				def train_model(vars):
-				model = LinearRegression()
-				model.fit(house[vars], house[outcome])
-				return model
-				best_model, _ = stepwise_selection(house[predictors].columns, train_model)
+# Python (p. 158 adapted)
+from dmba import stepwise_selection
+predictors = ['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']
+def train_model(vars):
+model = LinearRegression()
+model.fit(house[vars], house[outcome])
+return model
+best_model, _ = stepwise_selection(house[predictors].columns, train_model)
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -326,11 +329,11 @@
 				\item \textbf{Impact}: Refines coefficients for current market
 			\end{itemize}
 			\begin{lstlisting}
-				# R (p. 159)
-				house$Weight = year(house$DocumentDate) - 2005
-				house_wt <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
-				Bedrooms + BldgGrade, data = house, weight = Weight)
-				# Shifts coefs slightly
+# R (p. 159)
+house$Weight = year(house$DocumentDate) - 2005
+house_wt <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+Bedrooms + BldgGrade, data = house, weight = Weight)
+# Shifts coefs slightly
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -348,10 +351,10 @@
 				\item \textbf{Key Insight}: Aligns predictions with market trends
 			\end{itemize}
 			\begin{lstlisting}
-				# Python (p. 160)
-				house['Weight'] = [int(date.split('-')[0]) for date in house.DocumentDate] - 2005
-				house_wt = LinearRegression()
-				house_wt.fit(house[predictors], house[outcome], sample_weight=house.Weight)
+# Python (p. 160)
+house['Weight'] = [int(date.split('-')[0]) for date in house.DocumentDate] - 2005
+house_wt = LinearRegression()
+house_wt.fit(house[predictors], house[outcome], sample_weight=house.Weight)
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -389,11 +392,11 @@
 				\item \textbf{Heteroskedasticity}: Uneven errors signal gaps
 			\end{itemize}
 			\begin{lstlisting}
-				# R (p. 177)
-				house_98105 <- house[house$ZipCode == 98105, ]
-				lm_98105 <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
-				Bedrooms + BldgGrade, data = house_98105)
-				sresid <- rstandard(lm_98105)  # -4.326732 outlier
+# R (p. 177)
+house_98105 <- house[house$ZipCode == 98105, ]
+lm_98105 <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+Bedrooms + BldgGrade, data = house_98105)
+sresid <- rstandard(lm_98105)  # -4.326732 outlier
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{figure}
@@ -412,12 +415,12 @@
 				\item \textbf{Key Insight}: Diagnostics ensure robust housing predictions
 			\end{itemize}
 			\begin{lstlisting}
-				# Python (p. 178)
-				from statsmodels.stats.outliers_influence import OLSInfluence
-				house_98105 = house[house['ZipCode'] == 98105]
-				model = smf.ols('AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms + Bedrooms + BldgGrade', data=house_98105).fit()
-				influence = OLSInfluence(model)
-				sresiduals = influence.resid_studentized
+# Python (p. 178)
+from statsmodels.stats.outliers_influence import OLSInfluence
+house_98105 = house[house['ZipCode'] == 98105]
+model = smf.ols('AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms + Bedrooms + BldgGrade', data=house_98105).fit()
+influence = OLSInfluence(model)
+sresiduals = influence.resid_studentized
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
