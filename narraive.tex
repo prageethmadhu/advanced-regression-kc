@@ -1,0 +1,265 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{listings} % For code snippets
+\lstset{ % Configure code appearance
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  language=R % Default, will switch to Python as needed
+}
+
+% Title slide information
+\title{Regression and Prediction: A Journey Through Data Relationships}
+\subtitle{Chapter 4 Summary with R and Python Examples}
+\author{Your Name}
+\date{February 23, 2025}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Outline Slide
+\begin{frame}{Outline: Our Data Journey}
+  \begin{itemize}
+    \item \textbf{Starting the Journey}: Discovering regression with simple lines and fitting them right.
+    \item \textbf{Broadening the Picture}: Adding more clues—multiple variables, categories, and curves.
+    \item \textbf{Refining Our Craft}: Perfecting the story with assessment, validation, and simplicity.
+    \item \textbf{Navigating Pitfalls}: Facing limits, missteps, and flaws in our tale.
+    \item \textbf{Bringing It Home}: Grounding it in examples, lessons, and the road ahead.
+  \end{itemize}
+\end{frame}
+
+% Section 1: Starting the Journey
+\section{Starting the Journey}
+
+\begin{frame}{The Quest to Understand Relationships}
+  \begin{itemize}
+    \item Imagine you’re a detective in a world of data, trying to uncover how one thing—like house prices—relates to others, like size or location.
+    \item That’s regression: a tool to ask, ``How does $Y$ change with $X$, and can we predict it?''
+    \item It’s the bridge between stats, where we explain the past, and data science, where we predict the future—our journey begins here.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{A Simple Start: Linear Regression}
+  \begin{itemize}
+    \item Picture a straight line connecting lung capacity ($Y$) to dust exposure ($X$): $Y = b_0 + b_1X$.
+    \item $b_0$ is our start, $b_1$ the shift per step—let’s predict ($\hat{Y}$) and check errors ($Y - \hat{Y}$).
+    \item \textbf{R Example (p. 144)}: Fit lung data:
+      \begin{lstlisting}
+model <- lm(PEFR ~ Exposure, data = lung)
+      \end{lstlisting}
+      Output: Intercept = 424.583, Slope = -4.185.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Simple Regression in Python}
+  \begin{itemize}
+    \item \textbf{Python Example (p. 145)}: Same lung data with scikit-learn:
+      \lstset{language=Python}
+      \begin{lstlisting}
+from sklearn.linear_model import LinearRegression
+predictors = ['Exposure']
+outcome = 'PEFR'
+model = LinearRegression()
+model.fit(lung[predictors], lung[outcome])
+print(f'Intercept: {model.intercept_:.3f}')  # 424.583
+print(f'Coefficient: {model.coef_[0]:.3f}')  # -4.185
+      \end{lstlisting}
+    \item Our first clue: each year of exposure cuts lung capacity by 4.185 units.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Finding the Best Fit: Least Squares}
+  \begin{itemize}
+    \item How do we draw that line? Minimize the mess: $\sum (Y - \hat{Y})^2$.
+    \item Like fitting a key into a lock—Legendre and Gauss gave us this trick.
+    \item It’s fast, but outliers can skew it in small cases—our tool’s ready.
+  \end{itemize}
+\end{frame}
+
+% Section 2: Broadening the Picture
+\section{Broadening the Picture}
+
+\begin{frame}[fragile]{More Clues: Multiple Linear Regression}
+  \begin{itemize}
+    \item One clue isn’t enough for house prices. We juggle more: $Y = b_0 + b_1X_1 + b_2X_2 + \dots$.
+    \item \textbf{R Example (p. 152)}: King County housing:
+      \begin{lstlisting}
+house_lm <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+               Bedrooms + BldgGrade, data = house, na.action = na.omit)
+      \end{lstlisting}
+      Output: Size adds \$229 per sq ft.
+    \item RMSE and $R^2$ measure our map’s richness.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Multiple Regression in Python}
+  \begin{itemize}
+    \item \textbf{Python Example (p. 152)}: Same housing data:
+      \lstset{language=Python}
+      \begin{lstlisting}
+predictors = ['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']
+outcome = 'AdjSalePrice'
+house_lm = LinearRegression()
+house_lm.fit(house[predictors], house[outcome])
+print(f'Intercept: {house_lm.intercept_:.3f}')  # -521871.168
+      \end{lstlisting}
+    \item Each clue—size, bedrooms—twists the price story.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Categories Join the Tale: Factor Variables}
+  \begin{itemize}
+    \item Not all clues are numbers—townhouse or single-family? These are categories.
+    \item We flip switches (0 or 1), pick a baseline, and see how property type shifts prices.
+    \item Our cast grows, adding depth to the tale.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Curves in the Plot: Nonlinear Regression}
+  \begin{itemize}
+    \item Straight lines fail when value jumps unevenly—small homes vs. mansions.
+    \item \textbf{R Spline Example (p. 190)}: Housing spline:
+      \begin{lstlisting}
+library(splines)
+knots <- quantile(house_98105$SqFtTotLiving, p = c(.25, .5, .75))
+lm_spline <- lm(AdjSalePrice ~ bs(SqFtTotLiving, knots = knots, degree = 3) +
+                SqFtLot + Bathrooms + Bedrooms + BldgGrade, data = house_98105)
+      \end{lstlisting}
+    \item Curves (polynomials, splines, GAMs) sketch the winding path.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Nonlinear in Python}
+  \begin{itemize}
+    \item \textbf{Python Spline Example (p. 190)}: Using statsmodels:
+      \lstset{language=Python}
+      \begin{lstlisting}
+import statsmodels.formula.api as smf
+formula = 'AdjSalePrice ~ bs(SqFtTotLiving, df=6, degree=3) + SqFtLot + Bathrooms + Bedrooms + BldgGrade'
+model_spline = smf.ols(formula=formula, data=house_98105)
+result_spline = model_spline.fit()
+      \end{lstlisting}
+    \item Our story bends with the data’s true shape.
+  \end{itemize}
+\end{frame}
+
+% Section 3: Refining Our Craft
+\section{Refining Our Craft}
+
+\begin{frame}{Checking Our Work: Model Assessment}
+  \begin{itemize}
+    \item Does our story hold? RMSE tracks prediction errors, $R^2$ shows what’s captured.
+    \item R and Python tools keep us on target—prediction trumps fine print.
+    \item Like proofreading: is it solid?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Testing the Future: Cross-Validation}
+  \begin{itemize}
+    \item Prediction eyes tomorrow. Cross-validation splits data into $k$ pieces.
+    \item Train on most, test on one, repeat—our tale must foresee, not just fit.
+    \item Keeps us honest, not overfitting the past.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Picking the Best Story: Model Selection}
+  \begin{itemize}
+    \item Too many clues clutter. Stepwise trims, AIC balances, penalties shrink.
+    \item Like editing: keep essentials, cut fluff—Occam’s razor sharpens our tale.
+    \item A lean story predicts best.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Weighing the Evidence: Weighted Regression}
+  \begin{itemize}
+    \item Some clues—like recent sales—matter more. We weight them higher.
+    \item In housing, years since 2005 tweak the tale, focusing on fresh voices.
+    \item Refines our lens, tuning the story.
+  \end{itemize}
+\end{frame}
+
+% Section 4: Navigating Pitfalls
+\section{Navigating Pitfalls}
+
+\begin{frame}{Limits of Prediction: Extrapolation and Uncertainty}
+  \begin{itemize}
+    \item Predicting too far—like an empty lot—misleads. Stay in bounds.
+    \item Uncertainty looms: confidence intervals for coefficients, wider ones for guesses.
+    \item Bootstrapping keeps us grounded in reality.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Decoding the Clues: Interpreting Coefficients}
+  \begin{itemize}
+    \item Clues trick us: correlation (size vs. bedrooms), multicollinearity, or missing pieces (location).
+    \item Interactions—like size in fancy zips—deepen the plot.
+    \item Read carefully, or the truth twists.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Spotting Flaws: Regression Diagnostics}
+  \begin{itemize}
+    \item Flaws emerge: outliers (e.g., \$119,748 sale) and sway points shift our line.
+    \item \textbf{R Example (p. 177)}: Check standardized residuals:
+      \begin{lstlisting}
+sresid <- rstandard(lm_98105)
+idx <- order(sresid)
+sresid[idx[1]]  # -4.326732
+      \end{lstlisting}
+    \item Uneven errors or curves hint at gaps—prediction shifts our focus.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Diagnostics in Python}
+  \begin{itemize}
+    \item \textbf{Python Example (p. 178)}: Using statsmodels:
+      \lstset{language=Python}
+      \begin{lstlisting}
+from statsmodels.stats.outliers_influence import OLSInfluence
+influence = OLSInfluence(result_98105)
+sresiduals = influence.resid_studentized
+sresiduals.idxmin(), sresiduals.min()  # Biggest outlier
+      \end{lstlisting}
+    \item Diagnostics spot twists—like a partial sale—keeping our tale real.
+  \end{itemize}
+\end{frame}
+
+% Section 5: Bringing It Home
+\section{Bringing It Home}
+
+\begin{frame}{The Story in Action: Housing Examples}
+  \begin{itemize}
+    \item Housing comes alive: linear ties price to size, splines bend with reality.
+    \item Diagnostics uncover a \$119,748 partial sale—key points sway our line.
+    \item From theory to tool, grounded in data’s quirks.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lessons from the Journey}
+  \begin{itemize}
+    \item Regression adapts—lines to curves—for any tale.
+    \item Prediction drives us—RMSE, cross-validation—interpretation needs care.
+    \item R and Python turn data into predictive stories.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The Road Ahead}
+  \begin{itemize}
+    \item Deepen the tale: ``An Introduction to Statistical Learning'' or ``Practical Time Series Forecasting with R''.
+    \item Next steps: splines, time series—our journey continues.
+    \item Regression blends art and science—keep exploring.
+  \end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,456 @@
+\documentclass{beamer}
+\usetheme{metropolis}
+\usecolortheme{spruce}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\tiny, % Adjusted for richer content
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  backgroundcolor=\color{gray!10},
+  keywordstyle=\color{blue},
+  stringstyle=\color{red},
+  commentstyle=\color{green!60!black},
+  language=R % Default, switches to Python
+}
+
+% Title slide information
+\title{Regression \& Prediction}
+\subtitle{Theory and Practice with House Prices}
+\author{Your Name}
+\institute{xAI}
+\date{February 23, 2025}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Outline Slide
+\begin{frame}{Our Housing Journey}
+  \begin{columns}
+    \column{0.5\textwidth}
+      \begin{itemize}
+        \item Starting Simple: Foundations
+        \item Expanding the Scope: Complexity
+        \item Refining Precision: Optimization
+      \end{itemize}
+    \column{0.5\textwidth}
+      \begin{itemize}
+        \item Facing Challenges: Pitfalls
+        \item Insights \& Next Steps: Applications
+      \end{itemize}
+  \end{columns}
+  \metroset{block=fill}
+  \begin{block}{Focus}
+    Unpacking King County house prices with rich theory and dual R/Python implementations
+  \end{block}
+\end{frame}
+
+% Section 1: Starting Simple
+\section{Starting Simple}
+
+\begin{frame}{The Housing Puzzle}
+  \begin{itemize}
+    \item \textbf{Objective}: Decode drivers of house prices in King County—size, location, features
+    \item \textbf{Regression}: A statistical lens linking price ($Y$) to predictors like size ($X$)
+    \item \textbf{Purpose}: Explain historical sales patterns and forecast future values for buyers and assessors
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Simple Linear Regression: Theory \& R}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Theory (p. 141)}: Models a straight-line relationship: $Y = b_0 + b_1X + e$
+        \item $b_0$: Base price when size is zero; $b_1$: Price increase per sq ft; $e$: Random error
+        \item Assumes linearity and independence—foundation of regression
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 152 adapted)
+simple_lm <- lm(AdjSalePrice ~ SqFtTotLiving, data = house)
+# Output: b_0 ~ base, b_1 ~ price/sq ft
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{figure4-2-placeholder.pdf}
+        \caption{Price vs. Size Fit}
+      \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Simple Linear Regression: Python}
+  \lstset{language=Python}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Practice}: Fits price to living space, revealing size’s impact
+        \item \textbf{Key Insight}: Positive slope shows larger homes fetch higher prices
+      \end{itemize}
+      \begin{lstlisting}
+# Python (p. 152 adapted)
+from sklearn.linear_model import LinearRegression
+predictors = ['SqFtTotLiving']
+outcome = 'AdjSalePrice'
+simple_lm = LinearRegression()
+simple_lm.fit(house[predictors], house[outcome])
+# Example: Intercept ~ base, Coef ~ $ per sq ft
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Size as a core driver
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Least Squares Theory}
+  \begin{itemize}
+    \item \textbf{Theory (p. 148)}: Finds the line minimizing residual sum of squares: $\sum_{i=1}^n (Y_i - \hat{Y}_i)^2$
+    \item \textbf{How}: Adjusts $b_0$ and $b_1$ to reduce prediction errors—optimal for linear fits
+    \item \textbf{History}: Legendre (1805) and Gauss; computationally efficient but outlier-sensitive in small datasets
+  \end{itemize}
+\end{frame}
+
+% Section 2: Expanding the Scope
+\section{Expanding the Scope}
+
+\begin{frame}[fragile]{Multiple Linear Regression: Theory \& R}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Theory (p. 150)}: Extends to multiple predictors: $Y = b_0 + b_1X_1 + b_2X_2 + \dots + e$
+        \item \textbf{Power}: Captures combined effects—size, lot, bedrooms—assuming linearity
+        \item \textbf{Use}: Explains complex housing dynamics
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 152)
+house_lm <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+               Bedrooms + BldgGrade, data = house)
+# Coefs: SqFtTotLiving = 228.831, Bedrooms = -47769.955
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Size adds \$229/sq ft
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Multiple Linear Regression: Python}
+  \lstset{language=Python}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Practice}: Models housing with multiple factors
+        \item \textbf{Key Insight}: Negative bedroom coef suggests smaller rooms hurt value
+      \end{itemize}
+      \begin{lstlisting}
+# Python (p. 152)
+predictors = ['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']
+house_lm = LinearRegression()
+house_lm.fit(house[predictors], house[outcome])
+# Intercept: -521871.168, Bedrooms: -47769.955
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Bedrooms vs. size tension
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Factor Variables: Theory \& R}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Theory (p. 163)}: Encodes categorical variables (e.g., property type) as binary dummies
+        \item \textbf{Why}: Allows non-numeric factors in regression; compares to a reference level
+        \item \textbf{Example}: Single-family vs. Townhouse effects
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 164)
+prop_type_dummies <- model.matrix(~ PropertyType - 1, data = house)
+# Output: 1 for each type present
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Type shifts price
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Factor Variables: Python}
+  \lstset{language=Python}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Practice}: Integrates property type into price model
+        \item \textbf{Key Insight}: Townhouses may differ from single-family homes
+      \end{itemize}
+      \begin{lstlisting}
+# Python (p. 166 adapted)
+import pandas as pd
+X = pd.get_dummies(house['PropertyType'], drop_first=True)
+# Drops first level (e.g., Multiplex) as reference
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Baseline comparison
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Nonlinear Fit: Theory \& Splines in R}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Theory (p. 187)}: Nonlinear via polynomial segments joined at knots
+        \item \textbf{Why}: Captures diminishing returns—e.g., small homes gain more per sq ft
+        \item \textbf{Advantage}: Flexible fit without overfitting like high-order polynomials
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 190)
+library(splines)
+knots <- quantile(house_98105$SqFtTotLiving, p = c(.25, .5, .75))
+lm_spline <- lm(AdjSalePrice ~ bs(SqFtTotLiving, knots = knots, degree = 3) +
+                SqFtLot + Bathrooms + Bedrooms + BldgGrade, data = house_98105)
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{figure4-12-placeholder.pdf}
+        \caption{Spline Fit}
+      \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Nonlinear Fit: Splines in Python}
+  \lstset{language=Python}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Practice}: Fits nonlinear price trends in zip 98105
+        \item \textbf{Key Insight}: Better matches small vs. large home value shifts
+      \end{itemize}
+      \begin{lstlisting}
+# Python (p. 190)
+import statsmodels.formula.api as smf
+formula = 'AdjSalePrice ~ bs(SqFtTotLiving, df=6, degree=3) + SqFtLot + Bathrooms + Bedrooms + BldgGrade'
+model_spline = smf.ols(formula=formula, data=house_98105).fit()
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Curves reflect reality
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+% Section 3: Refining Precision
+\section{Refining Precision}
+
+\begin{frame}{Model Assessment: Theory}
+  \begin{itemize}
+    \item \textbf{Theory (p. 153)}: Measures prediction quality and fit
+    \item \textbf{RMSE}: $\sqrt{\frac{\sum (y_i - \hat{y}_i)^2}{n}}$—average error magnitude
+    \item \textbf{$R^2$}: Proportion of variance explained (0-1); higher means better fit
+    \item \textbf{Use}: Guides housing prediction accuracy
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cross-Validation: Theory}
+  \begin{itemize}
+    \item \textbf{Theory (p. 155)}: Validates model on unseen data via $k$-fold splits
+    \item \textbf{Process}: Divide data, train on $k-1$, test on 1, repeat, average RMSE
+    \item \textbf{Why}: Ensures predictions generalize beyond training sales—crucial for real estate
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Model Selection: Theory \& R}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Theory (p. 156)}: Balances fit vs. complexity—Occam’s razor
+        \item \textbf{AIC}: $2P + n\log(\text{RSS}/n)$—penalizes extra predictors
+        \item \textbf{Goal}: Optimal housing model without overkill
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 157)
+library(MASS)
+house_full <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+                 Bedrooms + BldgGrade + PropertyType, data = house)
+step <- stepAIC(house_full, direction = "both")
+# Drops less impactful vars
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Streamlined predictors
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Model Selection: Python}
+  \lstset{language=Python}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Practice}: Automates predictor choice for housing
+        \item \textbf{Key Insight}: Reduces noise, enhances prediction
+      \end{itemize}
+      \begin{lstlisting}
+# Python (p. 158 adapted)
+from dmba import stepwise_selection
+predictors = ['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']
+def train_model(vars):
+    model = LinearRegression()
+    model.fit(house[vars], house[outcome])
+    return model
+best_model, _ = stepwise_selection(house[predictors].columns, train_model)
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Focused fit
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Weighted Regression: Theory \& R}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Theory (p. 159)}: Weights adjust influence by reliability
+        \item \textbf{Why}: Older sales less relevant—recent data gets priority
+        \item \textbf{Impact}: Refines coefficients for current market
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 159)
+house$Weight = year(house$DocumentDate) - 2005
+house_wt <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+               Bedrooms + BldgGrade, data = house, weight = Weight)
+# Shifts coefs slightly
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Recent sales emphasized
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Weighted Regression: Python}
+  \lstset{language=Python}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Practice}: Weights tune housing model
+        \item \textbf{Key Insight}: Aligns predictions with market trends
+      \end{itemize}
+      \begin{lstlisting}
+# Python (p. 160)
+house['Weight'] = [int(date.split('-')[0]) for date in house.DocumentDate] - 2005
+house_wt = LinearRegression()
+house_wt.fit(house[predictors], house[outcome], sample_weight=house.Weight)
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Fresher focus
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+% Section 4: Facing Challenges
+\section{Facing Challenges}
+
+\begin{frame}{Prediction Limits: Theory}
+  \begin{itemize}
+    \item \textbf{Theory (p. 161)}: Extrapolation beyond data fails—e.g., empty lots
+    \item \textbf{Intervals}: Confidence for $b_i$, wider prediction for $\hat{Y}_i$
+    \item \textbf{Why}: Uncertainty spikes outside training range—limits housing forecasts
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Interpreting Coefficients: Theory}
+  \begin{itemize}
+    \item \textbf{Theory (p. 171)}: Coefficients mislead if predictors correlate
+    \item \textbf{Multicollinearity}: Size and bedrooms overlap—unstable fits
+    \item \textbf{Confounding}: Missing location skews results
+    \item \textbf{Interactions}: Size’s effect varies by zip—needs modeling
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Diagnostics: Theory \& R}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Theory (p. 176)}: Residuals reveal model flaws
+        \item \textbf{Outliers}: Extreme sales (e.g., \$119,748); \textbf{Influence}: Sway points
+        \item \textbf{Heteroskedasticity}: Uneven errors signal gaps
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 177)
+house_98105 <- house[house$ZipCode == 98105, ]
+lm_98105 <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+               Bedrooms + BldgGrade, data = house_98105)
+sresid <- rstandard(lm_98105)  # -4.326732 outlier
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{figure4-6-placeholder.pdf}
+        \caption{Influence Plot}
+      \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Diagnostics: Python}
+  \lstset{language=Python}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Practice}: Identifies \$119,748 as partial sale anomaly
+        \item \textbf{Key Insight}: Diagnostics ensure robust housing predictions
+      \end{itemize}
+      \begin{lstlisting}
+# Python (p. 178)
+from statsmodels.stats.outliers_influence import OLSInfluence
+house_98105 = house[house['ZipCode'] == 98105]
+model = smf.ols('AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms + Bedrooms + BldgGrade', data=house_98105).fit()
+influence = OLSInfluence(model)
+sresiduals = influence.resid_studentized
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Spots critical flaws
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+% Section 5: Insights & Next Steps
+\section{Insights \& Next Steps}
+
+\begin{frame}{Housing Insights}
+  \begin{itemize}
+    \item \textbf{Findings}: Linear ties price to size, splines capture nonlinear trends
+    \item \textbf{Diagnostics}: Reveal quirks like partial sales—critical for accuracy
+    \item \textbf{Application}: Real-world tool for buyers, sellers, and assessors
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+  \begin{itemize}
+    \item \textbf{Flexible}: Evolves from simple lines to complex curves for housing
+    \item \textbf{Precise}: RMSE and cross-validation ensure reliable price predictions
+    \item \textbf{Powerful}: R and Python implementations unlock data-driven insights
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Looking Ahead}
+  \begin{itemize}
+    \item \textbf{Resources}: \textit{Statistical Learning} (Hastie et al.), \textit{Time Series Forecasting} (Shmueli)
+    \item \textbf{Next Steps}: Dive into splines, time series for dynamic housing models
+    \item \textbf{Call}: Blend theory and practice for smarter predictions
+  \end{itemize}
+\end{frame}
+
+\end{document}

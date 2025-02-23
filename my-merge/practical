@@ -1,0 +1,350 @@
+\documentclass{beamer}
+\usetheme{metropolis}
+\usecolortheme{spruce}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\scriptsize,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  backgroundcolor=\color{gray!10},
+  keywordstyle=\color{blue},
+  stringstyle=\color{red},
+  commentstyle=\color{green!60!black},
+  language=R % Default, switches to Python
+}
+
+% Title slide information
+\title{Regression \& Prediction}
+\subtitle{A Journey Through House Prices}
+\author{Your Name}
+\institute{xAI}
+\date{February 23, 2025}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Outline Slide (from your Page 2)
+\begin{frame}{Outline: Our Housing Journey}
+  \begin{itemize}
+    \item Starting the Journey: Simple lines and fits
+    \item Broadening the Picture: More clues and curves
+    \item Refining Our Craft: Perfecting the story
+    \item Navigating Pitfalls: Facing limits and flaws
+    \item Bringing It Home: Examples and lessons
+  \end{itemize}
+\end{frame}
+
+% Section 1: Starting the Journey
+\section{Starting the Journey}
+
+\begin{frame}{The Quest to Understand Relationships (Page 3)}
+  \begin{itemize}
+    \item Imagine you’re a detective, uncovering how house prices ($Y$) relate to size or location ($X$)
+    \item Regression asks: “How does $Y$ change with $X$, and can we predict it?”
+    \item Bridges stats (past) and data science (future)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{A Simple Start: Linear Regression (Page 4)}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Picture a line: $Y = b_0 + b_1X$
+        \item $b_0$: Start, $b_1$: Shift per $X$
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 152 adapted)
+simple_lm <- lm(AdjSalePrice ~ SqFtTotLiving, data = house)
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{figure4-2-placeholder.pdf}
+        \caption{Price vs. Size}
+      \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Simple Start: Python}
+  \lstset{language=Python}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Predicts price, errors as $Y - \hat{Y}$
+      \end{itemize}
+      \begin{lstlisting}
+# Python (p. 152 adapted)
+from sklearn.linear_model import LinearRegression
+predictors = ['SqFtTotLiving']
+outcome = 'AdjSalePrice'
+simple_lm = LinearRegression()
+simple_lm.fit(house[predictors], house[outcome])
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item First clue: Size matters
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Finding the Best Fit: Least Squares (Page 5)}
+  \begin{itemize}
+    \item Minimize the mess: $\sum (Y - \hat{Y})^2$
+    \item Like a key in a lock—Legendre and Gauss’s trick
+    \item Fast, but outliers can throw us off
+  \end{itemize}
+\end{frame}
+
+% Section 2: Broadening the Picture
+\section{Broadening the Picture}
+
+\begin{frame}[fragile]{More Clues: Multiple Linear Regression (Page 6)}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item $Y = b_0 + b_1X_1 + b_2X_2 + \dots$
+        \item Size, lot, bedrooms twist the tale
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 152)
+house_lm <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+               Bedrooms + BldgGrade, data = house)
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item RMSE, $R^2$ enrich our map
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Multiple Linear: Python}
+  \lstset{language=Python}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{lstlisting}
+# Python (p. 152)
+predictors = ['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']
+house_lm = LinearRegression()
+house_lm.fit(house[predictors], house[outcome])
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Output: \$229 per sq ft
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Categories Join the Tale: Factor Variables (Page 7)}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Townhouse or single-family? Categories
+        \item Switches (0/1), baseline comparison
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 164)
+prop_type_dummies <- model.matrix(~ PropertyType - 1, data = house)
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Cast grows richer
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Factor Variables: Python}
+  \lstset{language=Python}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{lstlisting}
+# Python (p. 166 adapted)
+import pandas as pd
+X = pd.get_dummies(house['PropertyType'], drop_first=True)
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Type shapes price
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Curves in the Plot: Nonlinear Regression (Page 8)}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Small homes jump, mansions less—bends
+        \item Polynomials ($X^2$), splines, GAMs
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 190)
+library(splines)
+knots <- quantile(house_98105$SqFtTotLiving, p = c(.25, .5, .75))
+lm_spline <- lm(AdjSalePrice ~ bs(SqFtTotLiving, knots = knots, degree = 3) +
+                SqFtLot + Bathrooms + Bedrooms + BldgGrade, data = house_98105)
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{figure4-12-placeholder.pdf}
+        \caption{Spline Fit}
+      \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Nonlinear: Python}
+  \lstset{language=Python}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Follows data’s winding path
+      \end{itemize}
+      \begin{lstlisting}
+# Python (p. 190)
+import statsmodels.formula.api as smf
+formula = 'AdjSalePrice ~ bs(SqFtTotLiving, df=6, degree=3) + SqFtLot + Bathrooms + Bedrooms + BldgGrade'
+model_spline = smf.ols(formula=formula, data=house_98105).fit()
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Not so straight anymore
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+% Section 3: Refining Our Craft
+\section{Refining Our Craft}
+
+\begin{frame}{Checking Our Work: Model Assessment (Page 9)}
+  \begin{itemize}
+    \item RMSE: How far off? $R^2$: How much captured?
+    \item R and Python clue us in—hit the target
+    \item Proofreading: Does it hold up?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Testing the Future: Cross-Validation (Page 10)}
+  \begin{itemize}
+    \item Splits data into $k$ pieces for tomorrow
+    \item Train most, test one, repeat—future-ready
+    \item Keeps us honest, not just past-fit
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Picking the Best Story: Model Selection (Page 11)}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Trim clutter, balance with AIC
+        \item Edit with Occam’s razor—lean tale
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 157)
+library(MASS)
+house_full <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+                 Bedrooms + BldgGrade + PropertyType, data = house)
+step <- stepAIC(house_full, direction = "both")
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Clear, predictive story
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Weighing the Evidence: Weighted Regression (Page 12)}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Recent sales weigh more—trust fresher data
+        \item Tweaks the tale since 2005
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 159)
+house$Weight = year(house$DocumentDate) - 2005
+house_wt <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+               Bedrooms + BldgGrade, data = house, weight = Weight)
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item Refines our focus
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+% Section 4: Navigating Pitfalls
+\section{Navigating Pitfalls}
+
+\begin{frame}{Limits of Prediction: Extrapolation and Uncertainty (Page 13)}
+  \begin{itemize}
+    \item Too far (empty lots) leads astray—stay in bounds
+    \item Uncertainty: Confidence vs. prediction intervals
+    \item Bootstrapping measures fuzziness
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Decoding the Clues: Interpreting Coefficients (Page 14)}
+  \begin{itemize}
+    \item Tricks: Correlation (size vs. bedrooms), multicollinearity
+    \item Interactions (size in zips) add depth
+    \item Read between lines—avoid twists
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Spotting Flaws: Regression Diagnostics (Page 15)}
+  \begin{columns}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item Outliers (\$119,748), uneven errors hint flaws
+        \item Focus: What works over perfection
+      \end{itemize}
+      \begin{lstlisting}
+# R (p. 177)
+house_98105 <- house[house$ZipCode == 98105, ]
+lm_98105 <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+               Bedrooms + BldgGrade, data = house_98105)
+sresid <- rstandard(lm_98105)  # -4.326732
+      \end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{figure4-6-placeholder.pdf}
+        \caption{Influence Plot}
+      \end{figure}
+  \end{columns}
+\end{frame}
+
+% Section 5: Bringing It Home
+\section{Bringing It Home}
+
+\begin{frame}{The Story in Action: Housing Examples (Page 16)}
+  \begin{itemize}
+    \item Linear ties price to size, splines curve reality
+    \item Diagnostics: \$119,748 partial sale sways line
+    \item Real predictions, data’s quirks
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lessons from the Journey (Page 17)}
+  \begin{itemize}
+    \item Bends from lines to curves—adaptable
+    \item RMSE, cross-validation chase prediction
+    \item R \& Python fuel data stories
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The Road Ahead (Page 18)}
+  \begin{itemize}
+    \item Deepen: \textit{Statistical Learning}, \textit{Time Series with R}
+    \item Next: Splines, time series
+    \item Blend art and science—keep refining
+  \end{itemize}
+\end{frame}
+
+\end{document}

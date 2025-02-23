@@ -1,0 +1,139 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Regression and Prediction}
+\author{Presented by ChatGPT}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{1. Regression and Supervised Learning}
+    \begin{itemize}
+        \item Regression examines relationships between predictor variables (X) and response variable (Y).
+        \item Supervised learning: Training a model using known outcomes.
+        \item Prediction vs. Explanation:
+        \begin{itemize}
+            \item Prediction: Estimating unknown Y values.
+            \item Explanation: Understanding relationships between X and Y.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{2. Simple Linear Regression}
+    \begin{itemize}
+        \item Models a relationship between one predictor and one response variable: \( Y = b_0 + b_1X \)
+        \item Key terms:
+        \begin{itemize}
+            \item Response variable (Y): Outcome being predicted.
+            \item Predictor variable (X): Independent input variable.
+            \item Regression coefficient (b₁): Measures impact of X on Y.
+            \item Intercept (b₀): Value of Y when X = 0.
+            \item Residuals: Difference between actual and predicted values.
+        \end{itemize}
+        \item Estimation method: Ordinary Least Squares (OLS).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{3. Multiple Linear Regression}
+    \begin{itemize}
+        \item Expands simple regression to multiple predictor variables:
+        \[ Y = b_0 + b_1X_1 + b_2X_2 + \dots + b_pX_p + e \]
+        \item Key evaluation metrics:
+        \begin{itemize}
+            \item Root Mean Squared Error (RMSE), Residual Standard Error (RSE).
+            \item R² (Coefficient of Determination) & Adjusted R².
+            \item t-statistic & p-value to determine predictor significance.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{4. Model Selection and Feature Selection}
+    \begin{itemize}
+        \item Stepwise Regression: Backward elimination, forward selection.
+        \item Akaike Information Criterion (AIC) & Bayesian Information Criterion (BIC).
+        \item Cross-validation (k-fold): Splits data into multiple train-test sets.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{5. Weighted Regression}
+    \begin{itemize}
+        \item Assigns different weights to observations based on importance.
+        \item Used for inverse-variance weighting and survey analysis.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{6. Factor Variables and Encoding Categorical Data}
+    \begin{itemize}
+        \item Factor Variables: Categorical variables needing transformation.
+        \item Dummy Variables (One-Hot Encoding) & Reference Coding.
+        \item Handling too many categories (e.g., zip codes) via grouping.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{7. Model Interpretation Challenges}
+    \begin{itemize}
+        \item Collinearity: Highly correlated predictors affect coefficient interpretation.
+        \item Confounding Variables: Missing key predictors lead to misleading relationships.
+        \item Significance Testing: p-values, t-statistics to determine variable importance.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{8. Regression Diagnostics and Model Validation}
+    \begin{itemize}
+        \item Residual Analysis: Detecting patterns in errors.
+        \item Heteroskedasticity: Uneven variance in residuals.
+        \item Outliers & Influential Points: Data points that impact model fit.
+        \item Leverage (Hat Values): Influence of individual data points.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{9. Regularization Techniques}
+    \begin{itemize}
+        \item Ridge Regression (L2): Shrinks regression coefficients.
+        \item Lasso Regression (L1): Sets some coefficients to zero.
+        \item Elastic Net: Combination of Ridge and Lasso.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{10. Time Series and Regression}
+    \begin{itemize}
+        \item Autoregressive Models (AR), ARIMA for forecasting.
+        \item Use of regression for time-dependent predictions.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{11. Case Study: House Price Prediction}
+    \begin{itemize}
+        \item Predicting house sales price using features like:
+        \begin{itemize}
+            \item Square footage, bedrooms, location (zip code).
+            \item Property type, building grade, number of bathrooms.
+        \end{itemize}
+        \item Challenges: Handling missing data, feature selection, avoiding overfitting.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{12. Best Practices in Regression Modeling}
+    \begin{itemize}
+        \item Avoid overfitting using cross-validation.
+        \item Check for collinearity among predictors.
+        \item Use domain knowledge for meaningful features.
+        \item Validate model assumptions via residual plots.
+        \item Interpret coefficients carefully in presence of correlations.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusion}
+    \begin{itemize}
+        \item Regression is essential for prediction and explanation.
+        \item Proper feature selection and model validation improve reliability.
+        \item Regularization prevents overfitting in complex models.
+        \item Interpretation challenges require careful handling of correlations.
+    \end{itemize}
+\end{frame}
+
+\end{document}
