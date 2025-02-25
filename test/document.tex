@@ -186,6 +186,27 @@ print(p_values)
 	\end{frame}
 
 
+% Section 3: Model Performance
+\begin{frame}[fragile]{Multiple Linear Regression:Model Evaluation}
+	\begin{columns}
+		\column{0.9\textwidth}
+		\begin{lstlisting}
+> cat("RMSE:", RMSE, "\n")
+RMSE: 249532.2 
+> cat("R²:", R_squared, "\n")
+R²: 0.5380018 
+> cat("P-values:\n")
+> print(p_values)
+(Intercept)  sqft_living     sqft_lot    bathrooms        grade 
+0.000000e+00 0.000000e+00 1.711092e-10 2.689854e-30 0.000000e+00 
+		\end{lstlisting}
+		\begin{itemize}
+			\item \textbf{RMSE}: 📉 $261,300 → Predictions are off by ~$261K on average.
+			\item \textbf{$R^2$}: 📊 0.5406 (54.06%) → The model explains 54% of price variation..
+			\item \textbf{P-values}: 🧪 SqFtLot is **not statistically significant (p = 0.323)`
+		\end{itemize}
+	\end{columns}
+\end{frame}
 	
 	
 	% Section 2: Expanding the Scope
@@ -236,25 +257,6 @@ Coefficients:
 \end{frame}
 
 
-% Section 3: Model Performance
-\begin{frame}[fragile]{Multiple Linear Regression:Model Evaluation}
-	\begin{columns}
-		\column{0.9\textwidth}
-		\begin{lstlisting}
-> cat("RMSE:", RMSE, "\n")
-RMSE: 249532.2 
-> cat("R²:", R_squared, "\n")
-R²: 0.5380018 
-> cat("P-values:\n")
-P-values:
-		\end{lstlisting}
-		\begin{itemize}
-			\item \textbf{RMSE}: 📉 $261,300 → Predictions are off by ~$261K on average.
-			\item \textbf{$R^2$}: 📊 0.5406 (54.06%) → The model explains 54% of price variation..
-			\item \textbf{P-values}: 🧪 SqFtLot is **not statistically significant (p = 0.323)`
-		\end{itemize}
-	\end{columns}
-\end{frame}
 
 	
 	\begin{frame}[fragile]{Multiple Linear Regression: Python}
