@@ -1,24 +1,14 @@
-\frametitle{Influence Plot (Bubble Plot) – Identify Influential Values}
+\frametitle{Histogram of Standardized Residuals: Normality Check}
 \begin{itemize}
-		\end{itemize}
-
-				\begin{lstlisting}[language=R, caption=Influence Plot in R]
-library(car)
-lm_model <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms + Bedrooms + BldgGrade, data=house_98105)
-influencePlot(lm_model)
-		\end{lstlisting}
-		\begin{lstlisting}[language=Python, caption=Influence Plot in Python]
-house_98105 = house[house['ZipCode'] == 98105]
-X = house_98105[['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']].assign(const=1)
-y = house_98105['AdjSalePrice']
-model = sm.OLS(y, X).fit()
-influence = sm.stats.outliers_influence.OLSInfluence(model)
-fig, ax = plt.subplots(figsize=(5, 5))
-ax.axhline(-2.5, ls='--', color='C1')
-ax.axhline(2.5, ls='--', color='C1')
-ax.scatter(influence.hat_matrix_diag, influence.resid_studentized_internal,
-s=1000 * np.sqrt(influence.cooks_distance[0]), alpha=0.5)
-ax.set_xlabel('hat values')
-ax.set_ylabel('studentized residuals')
-plt.show()\
-		\end{lstlisting}
+	\end{itemize}
+	
+	\begin{lstlisting}[language=R, caption=Histogram of Standardized Residuals in R]
+df <- data.frame(resid = residuals(lm_98105), pred = predict(lm_98105))
+ggplot(df, aes(pred, abs(resid))) + geom_point() + geom_smooth()
+	\end{lstlisting}
+	\begin{lstlisting}[language=Python, caption=Histogram of Standardized Residuals in Python]
+plt.hist(influence.resid_studentized_internal, bins=50, color='lightblue')
+plt.xlabel('Standardized Residuals')
+plt.title('Histogram of Standardized Residuals')
+plt.show()
+	\end{lstlisting}

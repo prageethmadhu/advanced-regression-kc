@@ -54,6 +54,16 @@
 		\end{block}
 	\end{frame}
 	
+	% Outline Slide
+	\begin{frame}{The Quest to Understand Relationships}
+		\begin{itemize}
+			\item Imagine you are exploring data to understand how different factors relate to each other.
+			\item That’s regression: a tool to ask, ``How does $Y$ change with $X$, and can we predict it?''
+			\item In very basically It’s the bridge between stats, where we explain the past, and data science, where we predict the future—our journey begins here.
+		\end{itemize}
+	\end{frame}
+	
+	
 	% Section 1: Starting Simple
 	\section{Starting Simple}
 	
@@ -69,14 +79,25 @@
 		\begin{columns}
 			\column{0.6\textwidth}
 			\begin{itemize}
-				\item \textbf{Theory (p. 141)}: Models a straight-line relationship: $Y = b_0 + b_1X + e$
+				\item \textbf{Theory}: Models a straight-line relationship: $Y = b_0 + b_1X + e$
 				\item $b_0$: Base price when size is zero; $b_1$: Price increase per sq ft; $e$: Random error
 				\item Assumes linearity and independence—foundation of regression
 			\end{itemize}
 			\begin{lstlisting}
-# R (p. 152 adapted)
-simple_lm <- lm(AdjSalePrice ~ SqFtTotLiving, data = house)
-# Output: b_0 ~ base, b_1 ~ price/sq ft
+# R 
+simple_lm <- lm(AdjSalePrice ~ SqFtTotLiving, data = house_df)
+# Create the plot
+ggplot(house_df, aes(x = sqft_living, y = price)) +
+geom_point(alpha = 0.5) +  # Scatter plot
+geom_smooth(method = "lm", color = "blue", se = FALSE) +  # Regression line
+labs(title = "Price vs. Size Fit",
+x = "Size (sqft_living)",
+y = "Price") +
+theme_minimal()
+# Output: Coefficients:
+(Intercept)  sqft_living  
+-43580.7        280.6 
+
 			\end{lstlisting}
 			\column{0.4\textwidth}
 		\begin{figure}
@@ -84,6 +105,12 @@ simple_lm <- lm(AdjSalePrice ~ SqFtTotLiving, data = house)
 			\includegraphics[width=\textwidth]{regres1.jpg} % Use .png, .jpg, or .jpeg instead of .pdf
 			\caption{Price vs. Size Fit}
 			\label{fig:price_vs_size_fit}
+			\begin{itemize}
+				\item Size as a core driver
+			\end{itemize}
+			\begin{itemize}
+				\item b0=−43580.7 , b1=280.6
+			\end{itemize}
 		\end{figure}
 		\end{columns}
 	\end{frame}
@@ -106,20 +133,60 @@ simple_lm.fit(house[predictors], house[outcome])
 # Example: Intercept ~ base, Coef ~ $ per sq ft
 			\end{lstlisting}
 			\column{0.4\textwidth}
-			\begin{itemize}
-				\item Size as a core driver
-			\end{itemize}
+
 		\end{columns}
 	\end{frame}
 	
 	\begin{frame}{Finding the Best Fit: Least Squares}
-		\begin{itemize}
-			 \item \textbf{How do we draw that line?} We minimize the mess—sum of squared errors
-			\item \textbf{Theory}: Finds the line minimizing residual sum of squares: $\sum_{i=1}^n (Y_i - \hat{Y}_i)^2$
-			\item \textbf{How}: Adjusts $b_0$ and $b_1$ to reduce prediction errors—optimal for linear fits
-			\item \textbf{History}: Legendre (1805) and Gauss; computationally efficient but outlier-sensitive in small datasets
-		\end{itemize}
+			\begin{itemize}
+				 \item \textbf{How do we draw that line?} We minimize the mess—sum of squared errors
+				\item \textbf{Theory}: Finds the line minimizing residual sum of squares: $\sum_{i=1}^n (Y_i - \hat{Y}_i)^2$
+				\item \textbf{How}: Adjusts $b_0$ and $b_1$ to reduce prediction errors—optimal for linear fits
+				\item \textbf{History}: Legendre (1805) and Gauss; computationally efficient but outlier-sensitive in small datasets
+			\end{itemize}
+		\end{frame}
+		
+		\begin{frame}[fragile]{Finding the Best Fit: Least Squares}
+		\lstset{language=Python}
+\begin{columns}
+	\column{0.9\textwidth}
+			\begin{lstlisting}
+Coefficients:
+Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -5.957e+05  1.325e+04 -44.950  < 2e-16 ***
+sqft_living  2.065e+02  3.364e+00  61.373  < 2e-16 ***
+sqft_lot    -2.664e-01  4.171e-02  -6.388 1.71e-10 ***
+bathrooms   -3.944e+04  3.443e+03 -11.456  < 2e-16 ***
+grade        1.037e+05  2.285e+03  45.379  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 249600 on 21608 degrees of freedom
+Multiple R-squared:  0.538,	Adjusted R-squared:  0.5379 
+F-statistic:  6291 on 4 and 21608 DF,  p-value: < 2.2e-16
+		\end{lstlisting}
+				
+			\begin{lstlisting}
+# R
+summary(house_lm)# Model Summary (Extracts Coefficients, p-values, R²)
+predictions <- predict(house_lm, newdata = house_df)# Extract RMSE
+residuals <- house_df$price - predictions
+RMSE <- sqrt(mean(residuals^2))
+R_squared <- summary(house_lm)$r.squared # Extract R-squared
+p_values <- summary(house_lm)$coefficients[, 4] # Extract P-values
+# Print Results
+cat("RMSE:", RMSE, "\n")
+cat("R²:", R_squared, "\n")
+cat("P-values:\n")
+print(p_values)
+			\end{lstlisting}
+			\column{0.4\textwidth}
+			
+		\end{columns}
 	\end{frame}
+
+
+	
 	
 	% Section 2: Expanding the Scope
 	\section{Expanding the Scope}
@@ -163,7 +230,7 @@ Coefficients:
 			\item \textbf{sqft\_living}: 🏡 +\$206.5 per sq ft → Larger houses increase price significantly.
 			\item \textbf{grade}: 🔼 +\$103,700 per unit → Higher quality homes boost price.
 			\item \textbf{sqft\_lot}: 🌲 -\$0.266 per sq ft → Lot size has a tiny negative effect.
-			\item \textbf{bathrooms}: 🚿 -\$39,440 per extra bathroom → Unexpected negative impact (possible interaction effect).
+			\item \textbf{bathrooms}: 🚿 -\$39,440 per extra bathroom → Unexpected negative impact.
 		\end{itemize}
 	\end{columns}
 \end{frame}
@@ -573,15 +640,15 @@ plt.show()\
 		\end{columns}
 	\end{frame}
 	
-	\begin{frame}{Residual Plot (Heteroskedasticity Check)}
+	\begin{frame}[fragile]{Influence Plot (Bubble Plot) – Identify Influential Values}
 		\begin{itemize}
 		\end{itemize}
 		
-		\begin{lstlisting}[language=R, caption=Influence Plot in R]
+		\begin{lstlisting}[language=R, caption=Heteroskedasticity Plot in R]
 df <- data.frame(resid = residuals(lm_98105), pred = predict(lm_98105))
 ggplot(df, aes(pred, abs(resid))) + geom_point() + geom_smooth()
 		\end{lstlisting}
-		\begin{lstlisting}[language=Python, caption=Influence Plot in Python]
+		\begin{lstlisting}[language=Python, caption=Heteroskedasticity Plot in Python]
 import seaborn as sns
 fig, ax = plt.subplots(figsize=(5, 5))
 sns.regplot(model.fittedvalues, np.abs(model.resid), scatter_kws={'alpha': 0.25},
@@ -591,6 +658,53 @@ ax.set_ylabel('abs(residual)')
 plt.show()
 		\end{lstlisting}
 	\end{frame}
+	
+	\begin{frame}{Histogram of Standardized Residuals: Normality Check}
+		\begin{itemize}
+			\item \textbf{Purpose:} The histogram assesses residual normality by analyzing the distribution of standardized residuals.
+			\item \textbf{Key Insights:}
+			\begin{itemize}
+				\item Centering Around Zero: The residuals are centered around 0, indicating no strong systematic bias in the model.
+				\item Skewness & Long Tails: The right tail is longer, suggesting right-skewness and possible underestimation of some values.
+				
+				\item Non-Normal Distribution: The residuals deviate from a perfect bell-shaped curve, hinting at potential issues:
+					\begin{enumerate}
+						\item 	✅ Missing predictors affecting the model.
+						\item 	✅ Heteroskedasticity, as observed in the residual plot.
+						\item 	✅ Outliers influencing the regression fit.
+					\end{enumerate}
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+
+
+	\begin{frame}{Histogram of Standardized Residuals: Normality Check}
+		\begin{columns}
+			
+			\column{0.8\textwidth}
+			\begin{figure}
+				\includegraphics[width=0.8\textwidth]{histo.png}
+				\caption{Bubble plot showing influential points.}
+			\end{figure}
+		\end{columns}
+	\end{frame}
+
+\begin{frame}[fragile]{Histogram of Standardized Residuals: Normality Check}
+	\begin{itemize}
+	\end{itemize}
+	
+	\begin{lstlisting}[language=R, caption=Histogram of Standardized Residuals in R]
+df <- data.frame(resid = residuals(lm_98105), pred = predict(lm_98105))
+ggplot(df, aes(pred, abs(resid))) + geom_point() + geom_smooth()
+	\end{lstlisting}
+	\begin{lstlisting}[language=Python, caption=Histogram of Standardized Residuals in Python]
+plt.hist(influence.resid_studentized_internal, bins=50, color='lightblue')
+plt.xlabel('Standardized Residuals')
+plt.title('Histogram of Standardized Residuals')
+plt.show()
+	\end{lstlisting}
+\end{frame}
 	
 	% Section 5: Insights & Next Steps
 	\section{Insights \& Next Steps}

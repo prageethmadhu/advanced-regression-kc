@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2025.2.23)  25 FEB 2025 18:44
+This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2025.2.23)  25 FEB 2025 22:30
  restricted system commands enabled.
 **document.tex
 (./document.tex
@@ -1306,16 +1306,24 @@ LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <6> not available
 [4
 
 ]
-\openout4 = document.vrb
- (./document.vrb
-<regres1.jpg, id=60, 349.90726pt x 320.99925pt>
-File: regres1.jpg Graphic file (type jpg)
-<use regres1.jpg>
-Package luatex.def Info: regres1.jpg  used on input line 17.
-(luatex.def)             Requested size: 122.91406pt x 112.75795pt.
-)
 
 [5
+
+]
+\openout4 = document.vrb
+ (./document.vrb
+<regres1.jpg, id=65, 349.90726pt x 320.99925pt>
+File: regres1.jpg Graphic file (type jpg)
+<use regres1.jpg>
+Package luatex.def Info: regres1.jpg  used on input line 28.
+(luatex.def)             Requested size: 122.91406pt x 112.75795pt.
+)
+Overfull \vbox (60.56827pt too high) detected at line 116
+ []
+
+
+
+[6
 
 <./regres1.jpg>]
 \openout4 = document.vrb
@@ -1325,10 +1333,6 @@ y
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 ))
 
-[6
-
-]
-
 [7
 
 ]
@@ -1337,19 +1341,34 @@ File: lstlang1.sty 2024/09/23 1.10c listings language file
 
 ]
 \openout4 = document.vrb
- (./document.vrb)
+ (./document.vrb
+Overfull \hbox (35.27771pt too wide) detected at line 37
+[][][] $[]$[][][][][][][][] $[]$[][][][][][] 
+ []
 
-[9
-
-]
-\openout4 = document.vrb
- (./document.vrb)
-Overfull \vbox (3.26422pt too high) detected at line 169
+)
+Overfull \vbox (20.5163pt too high) detected at line 186
  []
 
 
 
+[9
+
+]
+
 [10
+
+]
+\openout4 = document.vrb
+ (./document.vrb)
+
+[11
+
+]
+\openout4 = document.vrb
+ (./document.vrb)
+
+[12
 
 
 Missing character: There is no 🏡 (U+1F3E1) in font [lmsans10-regular]:+tlig;!
@@ -1362,7 +1381,7 @@ Missing character: There is no 🚿 (U+1F6BF) in font [lmsans10-regular]:+tlig;!
 Missing character: There is no → (U+2192) in font cmss10!
 )
 
-[11
+[13
 
 
 Missing character: There is no 📉 (U+1F4C9) in font [lmsans10-regular]:+tlig;!
@@ -1372,19 +1391,19 @@ Missing character: There is no 🧪 (U+1F9EA) in font [lmsans10-regular]:+tlig;!
 \openout4 = document.vrb
  (./document.vrb)
 
-[12
-
-]
-\openout4 = document.vrb
- (./document.vrb)
-
-[13
-
-]
-\openout4 = document.vrb
- (./document.vrb)
-
 [14
+
+]
+\openout4 = document.vrb
+ (./document.vrb)
+
+[15
+
+]
+\openout4 = document.vrb
+ (./document.vrb)
+
+[16
 
 ]
 \openout4 = document.vrb
@@ -1406,24 +1425,16 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 )
-Overfull \vbox (20.0266pt too high) detected at line 281
+Overfull \vbox (20.0266pt too high) detected at line 348
  []
 
 
 
-[15
+[17
 
 ]
 \openout4 = document.vrb
  (./document.vrb)
-
-[16
-
-]
-
-[17
-
-]
 
 [18
 
@@ -1432,14 +1443,10 @@ Overfull \vbox (20.0266pt too high) detected at line 281
 [19
 
 ]
-\openout4 = document.vrb
- (./document.vrb)
 
 [20
 
 ]
-\openout4 = document.vrb
- (./document.vrb)
 
 [21
 
@@ -1456,16 +1463,28 @@ Overfull \vbox (20.0266pt too high) detected at line 281
 [23
 
 ]
+\openout4 = document.vrb
+ (./document.vrb)
 
 [24
 
 ]
+\openout4 = document.vrb
+ (./document.vrb)
 
 [25
 
 ]
 
 [26
+
+]
+
+[27
+
+]
+
+[28
 
 ]
 \openout4 = document.vrb
@@ -1488,31 +1507,31 @@ If that doesn't work, type  X <return>  to quit.
 
 )
 
-[27
-
-]
-\openout4 = document.vrb
- (./document.vrb)
-
-[28
-
-]
-\openout4 = document.vrb
- (./document.vrb)
-
 [29
 
 ]
 \openout4 = document.vrb
+ (./document.vrb)
+
+[30
+
+]
+\openout4 = document.vrb
+ (./document.vrb)
+
+[31
+
+]
+\openout4 = document.vrb
  (./document.vrb
-<influence_plot.png, id=208, 449.88075pt x 146.34676pt>
+<influence_plot.png, id=219, 449.88075pt x 146.34676pt>
 File: influence_plot.png Graphic file (type png)
 <use influence_plot.png>
 Package luatex.def Info: influence_plot.png  used on input line 6.
 (luatex.def)             Requested size: 196.667pt x 63.97517pt.
 )
 
-[30
+[32
 
 <./influence_plot.png>]
 \openout4 = document.vrb
@@ -1531,31 +1550,110 @@ If that doesn't work, type  X <return>  to quit.
 
 )
 
-[31
+[33
 
 ]
-Overfull \vbox (6.82562pt too high) detected at line 561
+Overfull \vbox (6.82562pt too high) detected at line 628
  []
 
 
 
-[32
-
-]
-
-[33
-
-]
-
 [34
 
 ]
+<residual_plot.png, id=236, 472.76625pt x 217.41225pt>
+File: residual_plot.png Graphic file (type png)
+<use residual_plot.png>
+Package luatex.def Info: residual_plot.png  used on input line 641.
+(luatex.def)             Requested size: 196.667pt x 90.44334pt.
+
 
 [35
 
-]
+<./residual_plot.png>]
+\openout4 = document.vrb
+ (./document.vrb
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.3 		\end{itemize}
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+)
 
 [36
+
+]
+! Misplaced alignment tab character &.
+\beamer@doifinframe ...the model. \item Skewness &
+                                                   Long Tails: The right tai...
+l.678 	\end{frame}
+                
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+
+
+[37
+
+
+Missing character: There is no ✅ (U+2705) in font [lmsans9-regular]:+tlig;!
+Missing character: There is no ✅ (U+2705) in font [lmsans9-regular]:+tlig;!
+Missing character: There is no ✅ (U+2705) in font [lmsans9-regular]:+tlig;!
+]
+<histo.png, id=253, 542.025pt x 313.17pt>
+File: histo.png Graphic file (type png)
+<use histo.png>
+Package luatex.def Info: histo.png  used on input line 691.
+(luatex.def)             Requested size: 196.667pt x 113.62991pt.
+
+
+[38
+
+<./histo.png>]
+\openout4 = document.vrb
+ (./document.vrb
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.3 	\end{itemize}
+                
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+)
+
+[39
+
+]
+
+[40
+
+]
+
+[41
+
+]
+
+[42
+
+]
+
+[43
 
 ]
 \tf@nav=\write6
@@ -1577,17 +1675,17 @@ Package rerunfilecheck Info: File `document.out' has not changed.
 )
 
 Here is how much of LuaTeX's memory you used:
- 32017 strings out of 475512
- 381635,1373583 words of node,token memory allocated
+ 32121 strings out of 475512
+ 596327,1373583 words of node,token memory allocated
  3825 words of node memory still in use:
    34 hlist, 8 vlist, 5 rule, 17 disc, 4 local_par, 87 glue, 25 kern, 21 penalty
 , 213 glyph, 88 attribute, 70 glue_spec, 88 attribute_list, 4 write, 1 pdf_liter
 al, 30 pdf_colorstack nodes
-   avail lists: 1:4,2:2953,3:267,4:9092,5:8562,6:79,7:11149,8:28,9:21415,10:29,1
-1:814
- 53915 multiletter control sequences out of 65536+600000
+   avail lists: 1:5,2:4300,3:320,4:14342,5:13636,6:100,7:17592,8:27,9:33784,10:3
+0,11:1246
+ 53980 multiletter control sequences out of 65536+600000
  52 fonts using 4265791 bytes
- 128i,13n,133p,1874b,1640s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,13n,133p,1874b,1671s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/users/prageeth/appdata/local/programs/miktex/fonts/opentype/public/lm/lmsans
 9-regular.otf><c:/users/prageeth/appdata/local/programs/miktex/fonts/opentype/pu
 blic/lm/lmmono10-regular.otf><c:/users/prageeth/appdata/local/programs/miktex/fo
@@ -1608,9 +1706,9 @@ lic/amsfonts/cm/cmss8.pfb><C:/Users/Prageeth/AppData/Local/Programs/MiKTeX/fonts
 /type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Prageeth/AppData/Local/Programs/M
 iKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Prageeth/AppData/Local/
 Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on document.pdf (36 pages, 203244 bytes).
+Output written on document.pdf (43 pages, 287467 bytes).
 
-PDF statistics: 334 PDF objects out of 1000 (max. 8388607)
- 79 named destinations out of 1000 (max. 131072)
+PDF statistics: 374 PDF objects out of 1000 (max. 8388607)
+ 93 named destinations out of 1000 (max. 131072)
  56 words of extra memory for PDF output out of 10000 (max. 100000000)
 

@@ -1,0 +1,33 @@
+
+
+
+\begin{frame}{Finding the Best Fit: Least Squares}
+    \begin{columns}
+    \begin{itemize}
+            \column{0.6\textwidth}
+    \begin{lstlisting}
+# Model Summary (Extracts Coefficients, p-values, R²)
+summary(house_lm)
+# Extract RMSE
+predictions <- predict(house_lm, newdata = house_df)
+residuals <- house_df$price - predictions
+RMSE <- sqrt(mean(residuals^2))
+# Extract R-squared
+R_squared <- summary(house_lm)$r.squared
+# Extract P-values
+p_values <- summary(house_lm)$coefficients[, 4]
+# Print Results
+cat("RMSE:", RMSE, "\n")
+cat("R²:", R_squared, "\n")
+cat("P-values:\n")
+print(p_values)
+    \end{lstlisting}
+        \column{0.4\textwidth}
+                \begin{itemize}
+            \item \textbf{How do we draw that line?} We minimize the mess—sum of squared errors
+            \item \textbf{Theory}: Finds the line minimizing residual sum of squares: $\sum_{i=1}^n (Y_i - \hat{Y}_i)^2$
+            \item \textbf{How}: Adjusts $b_0$ and $b_1$ to reduce prediction errors—optimal for linear fits
+            \item \textbf{History}: Legendre (1805) and Gauss; computationally efficient but outlier-sensitive in small datasets
+        \end{itemize}
+    \end{columns}
+\end{frame}
