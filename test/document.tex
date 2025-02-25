@@ -145,6 +145,51 @@ Bedrooms + BldgGrade, data = house)
 		\end{columns}
 	\end{frame}
 	
+
+% Section 2: Key Findings
+
+\begin{frame}[fragile]{Multiple Linear Regression: Key Findings}
+	\begin{columns}
+		\column{0.9\textwidth}
+		\begin{lstlisting}
+lm(formula = price ~ sqft_living + sqft_lot + bathrooms + bathrooms + 
+grade, data = house_df, na.action = na.omit)
+
+Coefficients:
+(Intercept)  sqft_living     sqft_lot    bathrooms        grade  
+-5.957e+05    2.065e+02   -2.664e-01   -3.944e+04    1.037e+05  
+		\end{lstlisting}
+		\begin{itemize}
+			\item \textbf{sqft\_living}: 🏡 +\$206.5 per sq ft → Larger houses increase price significantly.
+			\item \textbf{grade}: 🔼 +\$103,700 per unit → Higher quality homes boost price.
+			\item \textbf{sqft\_lot}: 🌲 -\$0.266 per sq ft → Lot size has a tiny negative effect.
+			\item \textbf{bathrooms}: 🚿 -\$39,440 per extra bathroom → Unexpected negative impact (possible interaction effect).
+		\end{itemize}
+	\end{columns}
+\end{frame}
+
+
+% Section 3: Model Performance
+\begin{frame}[fragile]{Multiple Linear Regression:Model Evaluation}
+	\begin{columns}
+		\column{0.9\textwidth}
+		\begin{lstlisting}
+> cat("RMSE:", RMSE, "\n")
+RMSE: 249532.2 
+> cat("R²:", R_squared, "\n")
+R²: 0.5380018 
+> cat("P-values:\n")
+P-values:
+		\end{lstlisting}
+		\begin{itemize}
+			\item \textbf{RMSE}: 📉 $261,300 → Predictions are off by ~$261K on average.
+			\item \textbf{$R^2$}: 📊 0.5406 (54.06%) → The model explains 54% of price variation..
+			\item \textbf{P-values}: 🧪 SqFtLot is **not statistically significant (p = 0.323)`
+		\end{itemize}
+	\end{columns}
+\end{frame}
+
+	
 	\begin{frame}[fragile]{Multiple Linear Regression: Python}
 		\lstset{language=Python}
 		\begin{columns}
@@ -154,11 +199,14 @@ Bedrooms + BldgGrade, data = house)
 				\item \textbf{Key Insight}: Negative bedroom coef suggests smaller rooms hurt value
 			\end{itemize}
 			\begin{lstlisting}
-# Python (p. 152)
-predictors = ['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']
+# Define predictors and outcome
+predictors = ['sqft_living', 'sqft_lot', 'bathrooms', 'grade']
+outcome = 'price'
+
+# Fit Multiple Linear Regression Model
 house_lm = LinearRegression()
-house_lm.fit(house[predictors], house[outcome])
-# Intercept: -521871.168, Bedrooms: -47769.955
+house_lm.fit(house_df[predictors], house_df[outcome])
+
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -167,6 +215,7 @@ house_lm.fit(house[predictors], house[outcome])
 		\end{columns}
 	\end{frame}
 	
+	% Section 2: Expanding the Scope
 	\begin{frame}[fragile]{Factor Variables: Theory \& R}
 		\begin{columns}
 			\column{0.6\textwidth}
@@ -251,9 +300,16 @@ model_spline = smf.ols(formula=formula, data=house_98105).fit()
 			\end{itemize}
 		\end{columns}
 	\end{frame}
+
+	
+	
+
 	
 	% Section 3: Refining Precision
 	\section{Refining Precision}
+	
+	
+
 	
 	\begin{frame}{Model Assessment: Theory}
 		\begin{itemize}
