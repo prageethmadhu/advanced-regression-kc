@@ -1,3 +1,18 @@
+---
+title: "lastpart"
+author: "my author"
+date: "2025-02-25"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+chooseCRANmirror(graphics = FALSE, ind = 1)
+
+
 packages <- c("ggplot2", "mgcv", "MASS", "caret", "knitr")
 install_if_missing <- packages[!(packages %in% installed.packages()[,"Package"])]
 if(length(install_if_missing)) install.packages(install_if_missing)
@@ -8,7 +23,10 @@ library(mgcv)    # Generalized Additive Models (GAM)
 library(MASS)    # Stepwise regression
 library(caret)   # Train-test split, cross-validation
 library(knitr)   # For mark
+```
 
+
+```{r,echo=FALSE}
 house_df <- read.csv("C:\\Users\\Prageeth\\Source\\MSC\\seminar-course\\advanced-regression-kc\\kc_house_data.csv", stringsAsFactors = TRUE)
 features <- c("bedrooms", "bathrooms", "sqft_living", "sqft_lot", "floors", 
               "condition", "grade", "sqft_above", "sqft_basement", "yr_built")
@@ -16,58 +34,10 @@ target <- "price"
 
 simple_lm <- lm ( price ~ sqft_living ,
                   data = house_df )
-
-# Create the plot
-ggplot(house_df, aes(x = sqft_living, y = price)) +
-  geom_point(alpha = 0.5) +  # Scatter plot
-  geom_smooth(method = "lm", color = "blue", se = FALSE) +  # Regression line
-  labs(title = "Price vs. Size Fit",
-       x = "Size (sqft_living)",
-       y = "Price") +
-  theme_minimal()
-
-lm ( price ~ sqft_living ,
-     data = house_df )
-
-lm(price ~ sqft_living + sqft_lot + bathrooms +
-                 bathrooms + grade, data = house_df,na.action = na.omit)
-
-# Define Multiple Linear Regression Model
-house_lm <- lm(price ~ sqft_living + sqft_lot + bathrooms + grade, 
-               data = house_df, na.action = na.omit)
-
-# Model Summary (Extracts Coefficients, p-values, R²)
-summary(house_lm)
-
-# Extract RMSE
-predictions <- predict(house_lm, newdata = house_df)
-residuals <- house_df$price - predictions
-RMSE <- sqrt(mean(residuals^2))
-
-# Extract R-squared
-R_squared <- summary(house_lm)$r.squared
-
-# Extract P-values
-p_values <- summary(house_lm)$coefficients[, 4]
-
-# Print Results
-cat("RMSE:", RMSE, "\n")
-cat("R²:", R_squared, "\n")
-cat("P-values:\n")
-print(p_values)
+```
 
 
-##########################
-
-#prop_type_dummies <- model.matrix(~ PropertyType - 1, data = house_df)
-# Output: 1 for each type present
-
-
-names(house_df)
-
-
-house_df["grade"]
-
+```{r,echo=TRUE}
 
 ##########
 
@@ -82,15 +52,10 @@ house_poly
 
 #######
 
-
 library(MASS)
 house_full <- lm(price ~ sqft_living + sqft_lot15 + bathrooms +
                    bedrooms + grade , data = house_df)
 step <- stepAIC(house_full, direction = "both")
-
-lm(formula = price ~ sqft_living + sqft_lot15 + bathrooms +
-     bedrooms + grade + yr_built, data = house_df,
-   na.action = na.omit)
 
 ###############last part
 
@@ -98,7 +63,6 @@ house_98105 <- house_df[house_df$zipcode == 98105,]
 lm_98105 <- lm(price ~ sqft_living + sqft_lot + bathrooms +
                  bedrooms + grade, data=house_98105)
 
-house_98105 ## 182 rows
 
 std_resid <- rstandard(lm_98105)
 cooks_D <- cooks.distance(lm_98105)
@@ -123,3 +87,4 @@ library(lmtest)
 dwtest(lm_98105)
 
 ggplot(df, aes(pred, abs(resid))) + geom_point() + geom_smooth()
+```

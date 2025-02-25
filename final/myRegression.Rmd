@@ -4,10 +4,10 @@ author: "my author"
 date: "2025-02-25"
 output: beamer_presentation
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+#
+#```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = FALSE)
+#```
 
 ## R Markdown
 
@@ -40,8 +40,125 @@ plot(pressure)
 
 
 
-## Start my work.
+# Start my work.
+
+##
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+chooseCRANmirror(graphics = FALSE, ind = 1)
+
+
+packages <- c("ggplot2", "mgcv", "MASS", "caret", "knitr")
+install_if_missing <- packages[!(packages %in% installed.packages()[,"Package"])]
+if(length(install_if_missing)) install.packages(install_if_missing)
+
+
+library(ggplot2)
+library(mgcv)    # Generalized Additive Models (GAM)
+library(MASS)    # Stepwise regression
+library(caret)   # Train-test split, cross-validation
+library(knitr)   # For mark
+```
 
 
 
+```{r}
+house_df <- read.csv("C:\\Users\\Prageeth\\Source\\MSC\\seminar-course\\advanced-regression-kc\\kc_house_data.csv", stringsAsFactors = TRUE)
+features <- c("bedrooms", "bathrooms", "sqft_living", "sqft_lot", "floors", 
+              "condition", "grade", "sqft_above", "sqft_basement", "yr_built")
+target <- "price"
+```
 
+
+# Simple Linear Regression
+##
+```{r,echo = TRUE,eval=FALSE,fig.width=3, fig.height=5}
+simple_lm <- lm ( price ~ sqft_living ,
+                  data = house_df )
+ggplot(house_df, aes(x = sqft_living, y = price)) +
+  geom_point(alpha = 0.5) +  # Scatter plot
+  geom_smooth(method = "lm", color = "blue", se = FALSE) +# Regression line
+  labs(title = "Price vs. Size Fit",
+       x = "Size (sqft_living)",
+       y = "Price") +
+  theme_minimal()
+  
+simple_lm
+```
+
+
+#
+## output
+
+```{r,echo=FALSE,fig.width=5, fig.height=1.5}
+simple_lm <- lm ( price ~ sqft_living ,
+                  data = house_df )
+                  
+                  
+ggplot(house_df, aes(x = sqft_living, y = price)) +
+  geom_point(alpha = 0.5) +  # Scatter plot
+  geom_smooth(method = "lm", color = "blue", se = FALSE) +  # Regression line
+  labs(title = "Price vs. Size Fit",
+       x = "Size (sqft_living)",
+       y = "Price") +
+  theme_minimal()
+  
+  
+```
+
+```{r,echo=FALSE}
+
+simple_lm
+```
+
+
+#
+##Model Summary (Extracts Coefficients, p-values, R²)
+
+```{r,echo=FALSE, width=3.5}
+house_lm <- lm(price ~ sqft_living + sqft_lot + bathrooms + grade, 
+               data = house_df, na.action = na.omit)
+summary(house_lm)
+```
+
+# 
+
+
+# Extract RMSE
+```{r,echo=FALSE}
+predictions <- predict(house_lm, newdata = house_df)
+residuals <- house_df$price - predictions
+RMSE <- sqrt(mean(residuals^2))
+```
+
+# Extract R-squared
+```{r,echo=FALSE}
+R_squared <- summary(house_lm)$r.squared
+```
+
+# Extract P-values
+```{r,echo=FALSE}
+p_values <- summary(house_lm)$coefficients[, 4]
+```
+
+# Print Results
+```{r,echo=FALSE}
+cat("RMSE:", RMSE, "\n")
+cat("R²:", R_squared, "\n")
+cat("P-values:\n")
+print(p_values)
+```
+
+# Print Results
+```{r,echo=FALSE}
+house_lm_2 <- lm(price ~ sqft_living + sqft_lot15 + bathrooms +
+                 bedrooms + grade, data=house_df, na.action=na.omit)
+house_lm_2
+
+
+house_poly <- lm(price ~ poly(sqft_living, 2) + sqft_lot15 + bathrooms +
+                   bedrooms + grade, data=house_df)
+house_poly
+
+```

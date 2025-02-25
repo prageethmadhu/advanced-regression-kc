@@ -485,6 +485,113 @@ sresiduals = influence.resid_studentized
 		\end{columns}
 	\end{frame}
 	
+	\begin{frame}[fragile]{Influence Plot (Bubble Plot) – Identify Influential Values}
+		\begin{itemize}
+			\item \textbf{Purpose:} Identifies influential observations by combining leverage, residuals, and Cook’s Distance.
+			\item \textbf{Key Insights:}
+			\begin{itemize}
+				\item Large bubbles = high Cook’s Distance → Removing these changes regression results significantly.
+				\item Possible reasons:
+				\begin{enumerate}
+					\item High leverage (extreme predictor values) , Large residual (far from regression line) ,Both high leverage and large residual.
+				\end{enumerate}
+			\end{itemize}
+			\item \textbf{Results:} Four large influential points found (Cook’s D > 0.08), impacting coefficients.
+			\item Residuals beyond ±2.5
+		\end{itemize}
+		
+
+	\end{frame}
+	
+	
+	\begin{frame}[fragile]{Influence Plot (Bubble Plot) – Identify Influential Values}
+		\begin{columns}
+		
+			\column{0.8\textwidth}
+			\begin{figure}
+				\includegraphics[width=0.8\textwidth]{influence_plot.png}
+				\caption{Bubble plot showing influential points.}
+			\end{figure}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}[fragile]{Influence Plot (Bubble Plot) – Identify Influential Values}
+		\begin{itemize}
+		\end{itemize}
+
+				\begin{lstlisting}[language=R, caption=Influence Plot in R]
+library(car)
+lm_model <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms + Bedrooms + BldgGrade, data=house_98105)
+influencePlot(lm_model)
+		\end{lstlisting}
+		\begin{lstlisting}[language=Python, caption=Influence Plot in Python]
+house_98105 = house[house['ZipCode'] == 98105]
+X = house_98105[['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']].assign(const=1)
+y = house_98105['AdjSalePrice']
+model = sm.OLS(y, X).fit()
+influence = sm.stats.outliers_influence.OLSInfluence(model)
+fig, ax = plt.subplots(figsize=(5, 5))
+ax.axhline(-2.5, ls='--', color='C1')
+ax.axhline(2.5, ls='--', color='C1')
+ax.scatter(influence.hat_matrix_diag, influence.resid_studentized_internal,
+s=1000 * np.sqrt(influence.cooks_distance[0]), alpha=0.5)
+ax.set_xlabel('hat values')
+ax.set_ylabel('studentized residuals')
+plt.show()\
+		\end{lstlisting}
+	\end{frame}
+	
+		\begin{frame}{Residual Plot (Heteroskedasticity Check)}
+		\begin{itemize}
+			\item \textbf{Purpose:} The residual plot checks for heteroskedasticity by analyzing how residuals (errors) vary with predicted values.
+			\item \textbf{Key Insights:}
+			\begin{itemize}
+				\item X-axis (Predicted Values): Represents the fitted values from the regression model.
+				\item Y-axis (Absolute Residuals): Measures the deviation of actual values from predictions.
+				\item Scatter Points: Each dot represents an observation’s residual.
+				\item LOESS Smoother (Blue Line): Shows the trend in residuals.
+				\item Shaded Region: Indicates confidence around the trend.
+				\begin{enumerate}
+					\item Heteroskedasticity detected – Residuals increase with larger predicted values, indicating variance instability.
+					\item  Curved Trend – Suggests missing variables or non-linearity in the data.
+					\item Outliers at High Predictions – Some extreme points have large residuals, further confirming instability.
+				\end{enumerate}
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	
+	
+		
+	\begin{frame}{Residual Plot (Heteroskedasticity Check)}
+		\begin{columns}
+			
+			\column{0.8\textwidth}
+			\begin{figure}
+				\includegraphics[width=0.8\textwidth]{residual_plot.png}
+				\caption{Bubble plot showing influential points.}
+			\end{figure}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{Residual Plot (Heteroskedasticity Check)}
+		\begin{itemize}
+		\end{itemize}
+		
+		\begin{lstlisting}[language=R, caption=Influence Plot in R]
+df <- data.frame(resid = residuals(lm_98105), pred = predict(lm_98105))
+ggplot(df, aes(pred, abs(resid))) + geom_point() + geom_smooth()
+		\end{lstlisting}
+		\begin{lstlisting}[language=Python, caption=Influence Plot in Python]
+import seaborn as sns
+fig, ax = plt.subplots(figsize=(5, 5))
+sns.regplot(model.fittedvalues, np.abs(model.resid), scatter_kws={'alpha': 0.25},
+line_kws={'color': 'C1'}, lowess=True, ax=ax)
+ax.set_xlabel('predicted')
+ax.set_ylabel('abs(residual)')
+plt.show()
+		\end{lstlisting}
+	\end{frame}
+	
 	% Section 5: Insights & Next Steps
 	\section{Insights \& Next Steps}
 	

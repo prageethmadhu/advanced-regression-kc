@@ -1,0 +1,364 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={regression\_analysis\_prageeth},
+  pdfauthor={my author},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{regression\_analysis\_prageeth}
+\author{my author}
+\date{2025-02-25}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}[fragile]{}
+\phantomsection\label{section}
+\#\texttt{\{r\ setup,\ include=FALSE\}\ \#knitr::opts\_chunk\$set(echo\ =\ FALSE)\ \#}
+
+\begin{block}{R Markdown}
+\phantomsection\label{r-markdown}
+This is an R Markdown presentation. Markdown is a simple formatting
+syntax for authoring HTML, PDF, and MS Word documents. For more details
+on using R Markdown see \url{http://rmarkdown.rstudio.com}.
+
+When you click the \textbf{Knit} button a document will be generated
+that includes both content as well as the output of any embedded R code
+chunks within the document.
+\end{block}
+
+\begin{block}{Slide with Bullets}
+\phantomsection\label{slide-with-bullets}
+\begin{itemize}
+\tightlist
+\item
+  Bullet 1
+\item
+  Bullet 2
+\item
+  Bullet 3
+\end{itemize}
+\end{block}
+
+\begin{block}{Slide with R Output}
+\phantomsection\label{slide-with-r-output}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(cars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00
+\end{verbatim}
+\end{block}
+
+\begin{block}{Slide with Plot}
+\phantomsection\label{slide-with-plot}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(pressure)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{myRegression_files/figure-beamer/pressure-1.pdf}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Start my work.}
+\phantomsection\label{start-my-work.}
+\begin{block}{}
+\phantomsection\label{section-1}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{house\_df }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"C:}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Users}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Prageeth}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Source}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{MSC}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{seminar{-}course}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{advanced{-}regression{-}kc}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{kc\_house\_data.csv"}\NormalTok{, }\AttributeTok{stringsAsFactors =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{features }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"bedrooms"}\NormalTok{, }\StringTok{"bathrooms"}\NormalTok{, }\StringTok{"sqft\_living"}\NormalTok{, }\StringTok{"sqft\_lot"}\NormalTok{, }\StringTok{"floors"}\NormalTok{, }
+              \StringTok{"condition"}\NormalTok{, }\StringTok{"grade"}\NormalTok{, }\StringTok{"sqft\_above"}\NormalTok{, }\StringTok{"sqft\_basement"}\NormalTok{, }\StringTok{"yr\_built"}\NormalTok{)}
+\NormalTok{target }\OtherTok{\textless{}{-}} \StringTok{"price"}
+\end{Highlighting}
+\end{Shaded}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Simple Linear Regression}
+\phantomsection\label{simple-linear-regression}
+\begin{block}{}
+\phantomsection\label{section-2}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{simple\_lm }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{ ( price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sqft\_living ,}
+                  \AttributeTok{data =}\NormalTok{ house\_df )}
+\FunctionTok{ggplot}\NormalTok{(house\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ sqft\_living, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Scatter plot}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}\CommentTok{\# Regression line}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Price vs. Size Fit"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Size (sqft\_living)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Price"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+  
+\NormalTok{simple\_lm}
+\end{Highlighting}
+\end{Shaded}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{}
+\phantomsection\label{section-3}
+\begin{block}{output}
+\phantomsection\label{output}
+\includegraphics{myRegression_files/figure-beamer/unnamed-chunk-3-1.pdf}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = price ~ sqft_living, data = house_df)
+## 
+## Coefficients:
+## (Intercept)  sqft_living  
+##    -43580.7        280.6
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{}
+\phantomsection\label{section-4}
+\#\#Model Summary (Extracts Coefficients, p-values, R²)
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = price ~ sqft_living + sqft_lot + bathrooms + grade, 
+##     data = house_df, na.action = na.omit)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1011695  -136513   -23045   100989  4782979 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -5.957e+05  1.325e+04 -44.950  < 2e-16 ***
+## sqft_living  2.065e+02  3.364e+00  61.373  < 2e-16 ***
+## sqft_lot    -2.664e-01  4.171e-02  -6.388 1.71e-10 ***
+## bathrooms   -3.944e+04  3.443e+03 -11.456  < 2e-16 ***
+## grade        1.037e+05  2.285e+03  45.379  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 249600 on 21608 degrees of freedom
+## Multiple R-squared:  0.538,  Adjusted R-squared:  0.5379 
+## F-statistic:  6291 on 4 and 21608 DF,  p-value: < 2.2e-16
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{}
+\phantomsection\label{section-5}
+\end{frame}
+
+\begin{frame}{Extract RMSE}
+\phantomsection\label{extract-rmse}
+\end{frame}
+
+\begin{frame}{Extract R-squared}
+\phantomsection\label{extract-r-squared}
+\end{frame}
+
+\begin{frame}{Extract P-values}
+\phantomsection\label{extract-p-values}
+\end{frame}
+
+\begin{frame}[fragile]{Print Results}
+\phantomsection\label{print-results}
+\begin{verbatim}
+## RMSE: 249532.2
+\end{verbatim}
+
+\begin{verbatim}
+## R²: 0.5380018
+\end{verbatim}
+
+\begin{verbatim}
+## P-values:
+\end{verbatim}
+
+\begin{verbatim}
+##  (Intercept)  sqft_living     sqft_lot    bathrooms        grade 
+## 0.000000e+00 0.000000e+00 1.711092e-10 2.689854e-30 0.000000e+00
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Print Results}
+\phantomsection\label{print-results-1}
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = price ~ sqft_living + sqft_lot15 + bathrooms + bedrooms + 
+##     grade, data = house_df, na.action = na.omit)
+## 
+## Coefficients:
+## (Intercept)  sqft_living   sqft_lot15    bathrooms     bedrooms        grade  
+##  -4.658e+05    2.341e+02   -7.113e-01   -2.894e+04   -4.161e+04    9.527e+04
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = price ~ poly(sqft_living, 2) + sqft_lot15 + bathrooms + 
+##     bedrooms + grade, data = house_df)
+## 
+## Coefficients:
+##           (Intercept)  poly(sqft_living, 2)1  poly(sqft_living, 2)2  
+##            -1.824e+05              2.696e+07              1.148e+07  
+##            sqft_lot15              bathrooms               bedrooms  
+##            -7.345e-01             -1.565e+04             -1.723e+04  
+##                 grade  
+##             1.075e+05
+\end{verbatim}
+\end{frame}
+
+\end{document}

@@ -2,4 +2,4 @@
 \beamer@sectionintoc {2}{Expanding the Scope}{8}{0}{2}
 \beamer@sectionintoc {3}{Refining Precision}{17}{0}{3}
 \beamer@sectionintoc {4}{Facing Challenges}{24}{0}{4}
-\beamer@sectionintoc {5}{Insights \& Next Steps}{29}{0}{5}
+\beamer@sectionintoc {5}{Insights \& Next Steps}{33}{0}{5}
