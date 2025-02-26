@@ -325,27 +325,78 @@ X = pd.get_dummies(house['PropertyType'], drop_first=True)
 		\end{columns}
 	\end{frame}
 	
-	\begin{frame}[fragile]{Nonlinear Fit: Theory \& Splines in R}
+	\begin{frame}[fragile]{Nonlinear Fit}
 		\begin{columns}
-			\column{0.6\textwidth}
+			\column{0.5\textwidth}
 			\begin{itemize}
-				\item \textbf{Theory (p. 187)}: Nonlinear via polynomial segments joined at knots
+				\item Nonlinear via polynomial segments joined at knots
 				\item \textbf{Why}: Captures diminishing returns—e.g., small homes gain more per sq ft
-				\item \textbf{Advantage}: Flexible fit without overfitting like high-order polynomials
+				\item \textbf{Advantage}: Flexible fit.
 			\end{itemize}
 			\begin{lstlisting}
-# R (p. 190)
-library(splines)
-knots <- quantile(house_98105$SqFtTotLiving, p = c(.25, .5, .75))
-lm_spline <- lm(AdjSalePrice ~ bs(SqFtTotLiving, knots = knots, degree = 3) +
-SqFtLot + Bathrooms + Bedrooms + BldgGrade, data = house_98105)
+# Load data (replace 'house_98105' with your dataset)
+model_poly <- lm(price ~ poly(sqft_living, 2) + sqft_lot +
+grade + bathrooms + bedrooms, data=house_df)
+
+# Generate partial residual plot
+visreg(model_poly, "sqft_living", gg=TRUE) +
+geom_point(color = "black", shape = 1) + 
+geom_smooth(method="loess", color="blue", size=1.2, linetype="dashed") + 
+theme_minimal() +
+labs(title="Partial Residual Plot", x="SqFtTotLiving", y="Partial Residuals")
 			\end{lstlisting}
-			\column{0.4\textwidth}
+			\column{0.5\textwidth}
 			\begin{figure}
-				\includegraphics[width=\textwidth]{figure4-12-placeholder.pdf}
-				\caption{Spline Fit}
+				\includegraphics[width=\linewidth]{without_poly.png}
+				\caption{Without poly.}
 			\end{figure}
 		\end{columns}
+	\end{frame}
+	
+	
+\begin{frame}{Comparison of Result}
+	\begin{columns}
+	
+		\column{0.8\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{with_poly.png}
+		\textbf{With Poly}
+	\end{columns}
+	
+	\vspace{1em}
+    \textbf{Observation:} With polynomial regression (2nd degree) aligns correctly with the trend, improving model accuracy.
+\end{frame}
+
+
+
+	\begin{frame}{Spline Regression: Partial Residual Plot}
+	\begin{columns}
+		% Left Column: R Code
+		\column{0.4\textwidth}
+		\begin{tcolorbox}
+			\begin{lstlisting}
+# Fit spline model (Cubic B-Spline)
+model_spline <- lm(price ~ bs(sqft_living, degree=3, df=6) + sqft_lot +
+grade + bathrooms + bedrooms, data=house_df)
+
+# Generate partial residual plot for spline regression
+model_spline <- lm(price ~ bs(sqft_living, degree=3, df=6) + sqft_lot +
+grade + bathrooms + bedrooms, data=house_df)
+\end{lstlisting}
+		\end{tcolorbox}
+		
+		% Right Column: Image
+		\column{0.6\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{spline.png}
+		\textbf{Spline Fit Visualization}
+	\end{columns}
+	
+	\vspace{1em}
+	\textbf{Explanation:} 
+	\item	Cubic Splines: The function is made of piecewise cubic polynomials (degree = 3).
+		\item Degrees of Freedom (df = 6): Controls flexibility—higher df allows more variation
+			\item Splines fit the data smoothly without unnecessary fluctuations.
 	\end{frame}
 	
 	\begin{frame}[fragile]{Nonlinear Fit: Splines in Python}
@@ -395,6 +446,14 @@ model_spline = smf.ols(formula=formula, data=house_98105).fit()
 			\item \textbf{Why}: Ensures predictions generalize beyond training sales—crucial for real estate
 		\end{itemize}
 	\end{frame}
+
+	\begin{frame}{Picking the Best Story: Model Selection}
+		\begin{itemize}
+			\item Too many clues clutter the tale. Stepwise selection trims variables, AIC balances fit and simplicity, and penalties shrink extras.
+			\item Think of it as editing: keep the essentials, cut the fluff—Occam’s razor guides us to a lean, powerful narrative.
+			\item Our goal? A story that’s clear and predicts well, not a sprawling epic.
+		\end{itemize}
+	\end{frame}	
 	
 	\begin{frame}[fragile]{Model Selection: Theory \& R}
 		\begin{columns}
@@ -418,6 +477,34 @@ step <- stepAIC(house_full, direction = "both")
 			\end{itemize}
 		\end{columns}
 	\end{frame}
+
+	\begin{frame}[fragile]{Multiple Linear Regression: Key Findings}
+	\begin{columns}
+		\column{0.9\textwidth}
+		\begin{lstlisting}
+house_full <- lm(price ~ sqft_living + sqft_lot15 + bathrooms +
+bedrooms + grade+yr_renovated , data = house_df)
+step <- stepAIC(house_full, direction = "both")
+summary(step)
+
+Coefficients:
+Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  -4.841e+05  1.477e+04 -32.777   <2e-16 ***
+sqft_living   2.300e+02  3.597e+00  63.956   <2e-16 ***
+sqft_lot15   -7.053e-01  6.252e-02 -11.282   <2e-16 ***
+bathrooms    -3.096e+04  3.442e+03  -8.994   <2e-16 ***
+bedrooms     -4.026e+04  2.271e+03 -17.726   <2e-16 ***
+grade         9.776e+04  2.290e+03  42.693   <2e-16 ***
+yr_renovated  8.746e+01  4.160e+00  21.022   <2e-16 ***
+
+		\end{lstlisting}
+		\begin{itemize}
+      		\item sqft lot15 (-5.135e-01) Small , impact on price can be removal.
+			\item grade (1.315e+05): Highest positive impact, should be kept.
+	\end{itemize}
+	\end{columns}
+	\end{frame}
+	
 	
 	\begin{frame}[fragile]{Model Selection: Python}
 		\lstset{language=Python}
