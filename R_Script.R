@@ -66,7 +66,7 @@ names(house_df)
 
 max(house_df["condition"])
 
-##### FACTOR# Load necessary library
+##### FACTOR VARIABLE# Load necessary library
 library(dplyr)
 library(car)  # For checking multicollinearity
 

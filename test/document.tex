@@ -250,29 +250,6 @@ PropertyTypeTownhouse       9677.07   11444.71   0.846  0.43639
 			\end{itemize}
 		\end{columns}
 	\end{frame}
-
-	
-	
-	\begin{frame}[fragile]{Factor Variables: Python}
-		\lstset{language=Python}
-		\begin{columns}
-			\column{0.6\textwidth}
-			\begin{itemize}
-				\item \textbf{Practice}: Integrates property type into price model
-				\item \textbf{Key Insight}: Townhouses may differ from single-family homes
-			\end{itemize}
-			\begin{lstlisting}
-# Python (p. 166 adapted)
-import pandas as pd
-X = pd.get_dummies(house['PropertyType'], drop_first=True)
-# Drops first level (e.g., Multiplex) as reference
-			\end{lstlisting}
-			\column{0.4\textwidth}
-			\begin{itemize}
-				\item Baseline comparison
-			\end{itemize}
-		\end{columns}
-	\end{frame}
 	
 	\begin{frame}[fragile]{Nonlinear Fit}
 		\begin{columns}

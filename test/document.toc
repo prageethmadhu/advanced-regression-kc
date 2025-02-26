@@ -1,5 +1,5 @@
 \beamer@sectionintoc {1}{Starting Simple}{4}{0}{1}
 \beamer@sectionintoc {2}{Expanding the Scope}{8}{0}{2}
-\beamer@sectionintoc {3}{Refining Precision}{19}{0}{3}
-\beamer@sectionintoc {4}{Facing Challenges}{28}{0}{4}
-\beamer@sectionintoc {5}{Insights \& Next Steps}{42}{0}{5}
+\beamer@sectionintoc {3}{Refining Precision}{18}{0}{3}
+\beamer@sectionintoc {4}{Facing Challenges}{27}{0}{4}
+\beamer@sectionintoc {5}{Insights \& Next Steps}{41}{0}{5}

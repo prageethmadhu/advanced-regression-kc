@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2025.2.23)  26 FEB 2025 14:03
+This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2025.2.23)  26 FEB 2025 14:27
  restricted system commands enabled.
 **document.tex
 (./document.tex
@@ -1396,44 +1396,34 @@ Overfull \vbox (28.7615pt too high) detected at line 227
 ]
 \openout4 = document.vrb
  (./document.vrb
-(C:/Users/Prageeth/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstlang1.st
-y
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-))
-
-[14
-
-]
-\openout4 = document.vrb
- (./document.vrb
-<without_poly.png, id=123, 787.94376pt x 362.35374pt>
+<without_poly.png, id=118, 787.94376pt x 362.35374pt>
 File: without_poly.png Graphic file (type png)
 <use without_poly.png>
 Package luatex.def Info: without_poly.png  used on input line 23.
 (luatex.def)             Requested size: 153.64493pt x 70.65593pt.
 )
-Overfull \vbox (45.5563pt too high) detected at line 303
+Overfull \vbox (45.3883pt too high) detected at line 280
  []
 
 
 
-[15
+[14
 
 <./without_poly.png>]
-<with_poly.png, id=129, 787.94376pt x 362.35374pt>
+<with_poly.png, id=124, 787.94376pt x 362.35374pt>
 File: with_poly.png Graphic file (type png)
 <use with_poly.png>
-Package luatex.def Info: with_poly.png  used on input line 317.
+Package luatex.def Info: with_poly.png  used on input line 294.
 (luatex.def)             Requested size: 245.83282pt x 113.04727pt.
 
 
-[16
+[15
 
 <./with_poly.png>]
 ! Illegal parameter number in definition of \iterate.
 <to be read again> 
  
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1442,7 +1432,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \iterate.
 <to be read again> 
  
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1451,7 +1441,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \iterate.
 <to be read again> 
  
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1460,7 +1450,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \iterate.
 <to be read again> 
  
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1469,7 +1459,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \beamer@doifinframe.
 <to be read again> 
  
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1478,7 +1468,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \beamer@doifinframe.
 <to be read again> 
  
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1491,7 +1481,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1500,7 +1490,7 @@ or  <return>  to continue without it.
 ! Illegal parameter number in definition of \lst@insertargs.
 <to be read again> 
 }
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1509,7 +1499,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \lst@arg.
 <to be read again> 
 }
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1518,7 +1508,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \lst@arg.
 <to be read again> 
 }
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1527,7 +1517,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \lst@arg.
 <to be read again> 
 }
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1536,7 +1526,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \reserved@a.
 <to be read again> 
 }
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1545,7 +1535,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \lst@arg.
 <to be read again> 
 }
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1554,7 +1544,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \lst@arg.
 <to be read again> 
 }
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1563,7 +1553,7 @@ are all screwed up? I'm going to assume that you meant ##.
 ! Illegal parameter number in definition of \lst@arg.
 <to be read again> 
 }
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
@@ -1573,7 +1563,7 @@ Runaway argument?
 ! Paragraph ended before \lst@next was complete.
 <to be read again> 
 \par 
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 I suspect you've forgotten a `}', causing me to apply this
 control sequence to too much text. How can we recover?
@@ -1582,7 +1572,7 @@ My plan is to forget the whole thing and hope for the best.
 ! You can't use `macro parameter character #' in internal vertical mode.
 \beamer@doifinframe ...oms, data=house_df) \par ##
                                                    Generate partial residual...
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -1592,7 +1582,7 @@ return to the right one by typing `I}' or `I$' or `I\par'.
 ! Missing $ inserted.
 <inserted text> 
 $
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1600,7 +1590,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
 $
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1608,7 +1598,7 @@ you left one out. Proceed, with fingers crossed.
 ! Undefined control sequence.
 \lst@OutputToken ...lst@CheckMerge {\lst@thestyle 
                                                   {\lst@FontAdjust \setbox \...
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1619,7 +1609,7 @@ and I'll forget about whatever was undefined.
 ! Argument of \lst@FillFixed@ has an extra }.
 <inserted text> 
 \par 
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 I've run across a `}' that doesn't seem to match anything.
 For example, `\def\a#1{...}' and `\a}' would produce
@@ -1632,7 +1622,7 @@ Runaway argument?
 ! Paragraph ended before \lst@FillFixed@ was complete.
 <to be read again> 
 \par 
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 I suspect you've forgotten a `}', causing me to apply this
 control sequence to too much text. How can we recover?
@@ -1641,7 +1631,7 @@ My plan is to forget the whole thing and hope for the best.
 ! Missing $ inserted.
 <inserted text> 
 $
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1649,28 +1639,28 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
 $
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-! LaTeX Error: \begin{minipage} on input line 349 ended by \end{tcolorbox}.
+! LaTeX Error: \begin{minipage} on input line 326 ended by \end{tcolorbox}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-<spline.png, id=135, 787.94376pt x 362.35374pt>
+<spline.png, id=130, 787.94376pt x 362.35374pt>
 File: spline.png Graphic file (type png)
 <use spline.png>
-Package luatex.def Info: spline.png  used on input line 349.
+Package luatex.def Info: spline.png  used on input line 326.
 (luatex.def)             Requested size: 184.3758pt x 84.78822pt.
 
 ! LaTeX Error: Lonely \item--perhaps a missing list environment.
@@ -1679,13 +1669,13 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 349
+Underfull \hbox (badness 10000) detected at line 326
 [][]
  []
 
@@ -1696,13 +1686,13 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 349
+Underfull \hbox (badness 10000) detected at line 326
 [][]
  []
 
@@ -1713,27 +1703,35 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.349 	\end{frame}
+l.326 	\end{frame}
                 
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 349
+Underfull \hbox (badness 10000) detected at line 326
 [][]
  []
 
 
-Overfull \vbox (18.01384pt too high) detected at line 349
+Overfull \vbox (17.84584pt too high) detected at line 326
  []
 
 
 
-[17
+[16
 
 <./spline.png>]
 \openout4 = document.vrb
- (./document.vrb)
+ (./document.vrb
+(C:/Users/Prageeth/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstlang1.st
+y
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+))
+
+[17
+
+]
 
 [18
 
@@ -1750,6 +1748,8 @@ Overfull \vbox (18.01384pt too high) detected at line 349
 [21
 
 ]
+\openout4 = document.vrb
+ (./document.vrb)
 
 [22
 
@@ -1768,22 +1768,20 @@ Overfull \vbox (18.01384pt too high) detected at line 349
 ]
 \openout4 = document.vrb
  (./document.vrb)
+Overfull \vbox (28.82846pt too high) detected at line 489
+ []
+
+
 
 [25
 
 ]
 \openout4 = document.vrb
  (./document.vrb)
-Overfull \vbox (28.99646pt too high) detected at line 512
- []
-
-
 
 [26
 
 ]
-\openout4 = document.vrb
- (./document.vrb)
 
 [27
 
@@ -1794,10 +1792,6 @@ Overfull \vbox (28.99646pt too high) detected at line 512
 ]
 
 [29
-
-]
-
-[30
 
 ]
 \openout4 = document.vrb
@@ -1820,6 +1814,12 @@ If that doesn't work, type  X <return>  to quit.
 
 )
 
+[30
+
+]
+\openout4 = document.vrb
+ (./document.vrb)
+
 [31
 
 ]
@@ -1830,21 +1830,15 @@ If that doesn't work, type  X <return>  to quit.
 
 ]
 \openout4 = document.vrb
- (./document.vrb)
-
-[33
-
-]
-\openout4 = document.vrb
  (./document.vrb
-<influence_plot.png, id=234, 449.88075pt x 146.34676pt>
+<influence_plot.png, id=229, 449.88075pt x 146.34676pt>
 File: influence_plot.png Graphic file (type png)
 <use influence_plot.png>
 Package luatex.def Info: influence_plot.png  used on input line 6.
 (luatex.def)             Requested size: 196.667pt x 63.97517pt.
 )
 
-[34
+[33
 
 <./influence_plot.png>]
 \openout4 = document.vrb
@@ -1863,25 +1857,25 @@ If that doesn't work, type  X <return>  to quit.
 
 )
 
-[35
+[34
 
 ]
-Overfull \vbox (6.82562pt too high) detected at line 674
+Overfull \vbox (6.82562pt too high) detected at line 651
  []
 
 
 
-[36
+[35
 
 ]
-<residual_plot.png, id=251, 472.76625pt x 217.41225pt>
+<residual_plot.png, id=246, 472.76625pt x 217.41225pt>
 File: residual_plot.png Graphic file (type png)
 <use residual_plot.png>
-Package luatex.def Info: residual_plot.png  used on input line 687.
+Package luatex.def Info: residual_plot.png  used on input line 664.
 (luatex.def)             Requested size: 172.08221pt x 79.13751pt.
 
 
-[37
+[36
 
 <./residual_plot.png>]
 \openout4 = document.vrb
@@ -1900,13 +1894,13 @@ If that doesn't work, type  X <return>  to quit.
 
 )
 
-[38
+[37
 
 ]
 ! Misplaced alignment tab character &.
 \beamer@doifinframe ...the model. \item Skewness &
                                                    Long Tails: The right tai...
-l.724 	\end{frame}
+l.701 	\end{frame}
                 
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -1917,21 +1911,21 @@ might try typing `S' now just to see what is salvageable.
 
 
 
-[39
+[38
 
 
 Missing character: There is no ✅ (U+2705) in font [lmsans9-regular]:+tlig;!
 Missing character: There is no ✅ (U+2705) in font [lmsans9-regular]:+tlig;!
 Missing character: There is no ✅ (U+2705) in font [lmsans9-regular]:+tlig;!
 ]
-<histo.png, id=268, 542.025pt x 313.17pt>
+<histo.png, id=263, 542.025pt x 313.17pt>
 File: histo.png Graphic file (type png)
 <use histo.png>
-Package luatex.def Info: histo.png  used on input line 737.
+Package luatex.def Info: histo.png  used on input line 714.
 (luatex.def)             Requested size: 196.667pt x 113.62991pt.
 
 
-[40
+[39
 
 <./histo.png>]
 \openout4 = document.vrb
@@ -1950,6 +1944,10 @@ If that doesn't work, type  X <return>  to quit.
 
 )
 
+[40
+
+]
+
 [41
 
 ]
@@ -1963,10 +1961,6 @@ If that doesn't work, type  X <return>  to quit.
 ]
 
 [44
-
-]
-
-[45
 
 ]
 \tf@nav=\write6
@@ -1986,23 +1980,23 @@ L3 programming layer <2025-01-18>
 Package rerunfilecheck Info: File `document.out' has not changed.
 (rerunfilecheck)             Checksum: CECF02430FE4D76503440DFE9CC2AA77;692.
 )
-(\end occurred when \ifx on line 349 was incomplete)
-(\end occurred when \if on line 349 was incomplete)
-(\end occurred when \if on line 349 was incomplete)
-(\end occurred when \if on line 349 was incomplete)
-(\end occurred when \if on line 349 was incomplete)
-(\end occurred when \if on line 349 was incomplete)
+(\end occurred when \ifx on line 326 was incomplete)
+(\end occurred when \if on line 326 was incomplete)
+(\end occurred when \if on line 326 was incomplete)
+(\end occurred when \if on line 326 was incomplete)
+(\end occurred when \if on line 326 was incomplete)
+(\end occurred when \if on line 326 was incomplete)
 
 Here is how much of LuaTeX's memory you used:
- 32131 strings out of 475512
+ 32116 strings out of 475512
  477057,1373583 words of node,token memory allocated
  3825 words of node memory still in use:
    34 hlist, 8 vlist, 5 rule, 17 disc, 4 local_par, 87 glue, 25 kern, 21 penalty
 , 213 glyph, 88 attribute, 70 glue_spec, 88 attribute_list, 4 write, 1 pdf_liter
 al, 30 pdf_colorstack nodes
-   avail lists: 1:6,2:3713,3:321,4:9092,5:8567,6:82,7:12855,8:67,9:21415,10:30,1
+   avail lists: 1:5,2:3739,3:321,4:9092,5:8567,6:82,7:12783,8:67,9:21415,10:30,1
 1:817
- 53996 multiletter control sequences out of 65536+600000
+ 53990 multiletter control sequences out of 65536+600000
  76 fonts using 6173111 bytes
  128i,13n,133p,1874b,1671s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/users/prageeth/appdata/local/programs/miktex/fonts/opentype/public/lm/lmsans
@@ -2027,9 +2021,9 @@ KTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Prageeth/AppData/Local/
 Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/Prageeth/AppD
 ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Pra
 geeth/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on document.pdf (45 pages, 388377 bytes).
+Output written on document.pdf (44 pages, 385784 bytes).
 
-PDF statistics: 396 PDF objects out of 1000 (max. 8388607)
- 97 named destinations out of 1000 (max. 131072)
+PDF statistics: 390 PDF objects out of 1000 (max. 8388607)
+ 95 named destinations out of 1000 (max. 131072)
  56 words of extra memory for PDF output out of 10000 (max. 100000000)
 
