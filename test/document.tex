@@ -533,23 +533,32 @@ best_model, _ = stepwise_selection(house[predictors].columns, train_model)
 	
 	\begin{frame}[fragile]{Weighted Regression: Theory \& R}
 		\begin{columns}
-			\column{0.6\textwidth}
+			\column{0.5\textwidth}
 			\begin{itemize}
 				\item \textbf{Theory (p. 159)}: Weights adjust influence by reliability
 				\item \textbf{Why}: Older sales less relevant—recent data gets priority
 				\item \textbf{Impact}: Refines coefficients for current market
 			\end{itemize}
 			\begin{lstlisting}
-# R (p. 159)
-house$Weight = year(house$DocumentDate) - 2005
-house_wt <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
-Bedrooms + BldgGrade, data = house, weight = Weight)
-# Shifts coefs slightly
+house_df$Weight <- house_df$Year - 2005
+house_lm <- lm(price ~ sqft_living + sqft_lot + bathrooms +bedrooms + grade, data=house_df)# Fit unweighted linear regression
+house_wt <- lm(price ~ sqft_living + sqft_lot + bathrooms +bedrooms + grade, data=house_df, weight=Weight)# Fit weighted linear regression
+# Compare coefficients of both models
+round(cbind(house_lm=house_lm$coefficients,house_wt=house_wt$coefficients), digits=3)
 			\end{lstlisting}
-			\column{0.4\textwidth}
-			\begin{itemize}
-				\item Recent sales emphasized
-			\end{itemize}
+			\column{0.5\textwidth}
+			\begin{lstlisting}
+               house_lm    house_wt
+(Intercept) -471575.692 -472501.632
+sqft_living     231.350     230.816
+sqft_lot         -0.325      -0.317
+bathrooms    -27973.439  -28075.162
+bedrooms     -40744.142  -40639.355
+grade         95586.697   95883.234
+\end{lstlisting}
+	\begin{itemize}
+	\item here no significant as data set only contain 2014,2015 data
+\end{itemize}
 		\end{columns}
 	\end{frame}
 	
@@ -720,7 +729,7 @@ plt.show()\
 	\begin{frame}{Residual Plot (Heteroskedasticity Check)}
 		\begin{columns}
 			
-			\column{0.8\textwidth}
+			\column{0.7\textwidth}
 			\begin{figure}
 				\includegraphics[width=0.8\textwidth]{residual_plot.png}
 				\caption{Bubble plot showing influential points.}

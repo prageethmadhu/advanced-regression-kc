@@ -145,6 +145,26 @@ step <- stepAIC(house_full, direction = "both")
 
 summary(step)
 
+###### Weights regression
+library(lubridate)
+
+# Create year column from DocumentDate
+house$Year = year(house_df$DocumentDate)
+# Compute weight (Years since 2005)
+house$Weight = house$Year - 2005
+# Fit unweighted linear regression
+house_lm <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+                 Bedrooms + BldgGrade, data=house)
+
+# Fit weighted linear regression
+house_wt <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
+                 Bedrooms + BldgGrade, data=house, weight=Weight)
+# Compare coefficients of both models
+round(cbind(house_lm=house_lm$coefficients,
+            house_wt=house_wt$coefficients), digits=3)
+
+
+
 
 ###############last part
 
