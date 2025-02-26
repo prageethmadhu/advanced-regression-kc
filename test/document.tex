@@ -115,27 +115,7 @@ theme_minimal()
 		\end{columns}
 	\end{frame}
 	
-	\begin{frame}[fragile]{Simple Linear Regression: Python}
-		\lstset{language=Python}
-		\begin{columns}
-			\column{0.6\textwidth}
-			\begin{itemize}
-				\item \textbf{Practice}: Fits price to living space, revealing size’s impact
-				\item \textbf{Key Insight}: Positive slope shows larger homes fetch higher prices
-			\end{itemize}
-			\begin{lstlisting}
-# Python (p. 152 adapted)
-from sklearn.linear_model import LinearRegression
-predictors = ['SqFtTotLiving']
-outcome = 'AdjSalePrice'
-simple_lm = LinearRegression()
-simple_lm.fit(house[predictors], house[outcome])
-# Example: Intercept ~ base, Coef ~ $ per sq ft
-			\end{lstlisting}
-			\column{0.4\textwidth}
 
-		\end{columns}
-	\end{frame}
 	
 	\begin{frame}{Finding the Best Fit: Least Squares}
 			\begin{itemize}
@@ -163,10 +143,9 @@ simple_lm.fit(house[predictors], house[outcome])
 				\item \textbf{Use}: Explains complex housing dynamics
 			\end{itemize}
 			\begin{lstlisting}
-# R (p. 152)
+# R 
 house_lm <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
 Bedrooms + BldgGrade, data = house)
-# Coefs: SqFtTotLiving = 228.831, Bedrooms = -47769.955
 			\end{lstlisting}
 			\column{0.4\textwidth}
 			\begin{itemize}
@@ -182,18 +161,17 @@ Bedrooms + BldgGrade, data = house)
 	\begin{columns}
 		\column{0.9\textwidth}
 		\begin{lstlisting}
-lm(formula = price ~ sqft_living + sqft_lot + bathrooms + bathrooms + 
-grade, data = house_df, na.action = na.omit)
-
+house_lm <- lm(price ~ sqft_living + sqft_lot + bathrooms + grade, 
+data = house_df, na.action = na.omit)
 Coefficients:
 (Intercept)  sqft_living     sqft_lot    bathrooms        grade  
--5.957e+05    2.065e+02   -2.664e-01   -3.944e+04    1.037e+05  
+-5.957e+05    2.313e+02   -3.254e-01   -2.797e+04    9.559e+04  
 		\end{lstlisting}
 		\begin{itemize}
-			\item \textbf{sqft\_living}: 🏡 +\$206.5 per sq ft → Larger houses increase price significantly.
-			\item \textbf{grade}: 🔼 +\$103,700 per unit → Higher quality homes boost price.
-			\item \textbf{sqft\_lot}: 🌲 -\$0.266 per sq ft → Lot size has a tiny negative effect.
-			\item \textbf{bathrooms}: 🚿 -\$39,440 per extra bathroom → Unexpected negative impact.
+			\item \textbf{sqft\_living}: +\🏡 2.313e+02 per sq ft → Larger houses increase price significantly.
+			\item \textbf{grade}: 🔼 +\$9.559e+04 per unit → Higher quality homes boost price.
+			\item \textbf{sqft\_lot}: 🌲 -\$3.254e-01 per sq ft → Lot size has a tiny negative effect.
+			\item \textbf{bathrooms}: 🚿 -\$4.074e+04 per extra bathroom → Unexpected negative impact.
 		\end{itemize}
 	\end{columns}
 \end{frame}
@@ -203,7 +181,6 @@ Coefficients:
 	\begin{columns}
 		\column{0.9\textwidth}
 		\begin{lstlisting}
-# R
 summary(house_lm)# Model Summary (Extracts Coefficients, p-values, R²)
 predictions <- predict(house_lm, newdata = house_df)# Extract RMSE
 residuals <- house_df$price - predictions
@@ -211,51 +188,23 @@ RMSE <- sqrt(mean(residuals^2))
 R_squared <- summary(house_lm)$r.squared # Extract R-squared
 p_values <- summary(house_lm)$coefficients[, 4] # Extract P-values
 # Print Results
-cat("RMSE:", RMSE, "\n")
-cat("R²:", R_squared, "\n")
-cat("P-values:\n")
-print(p_values)
-		\end{lstlisting}
-		\begin{lstlisting}
 > cat("RMSE:", RMSE, "\n") | RMSE: 249532.2 
 > cat("R²:", R_squared, "\n") | R²: 0.5380018 
 > cat("P-values:\n") > print(p_values)
+print(p_values)
+		\end{lstlisting}
+		\begin{lstlisting}
 (Intercept)  sqft_living     sqft_lot    bathrooms        grade 
 0.000000e+00 0.000000e+00 1.711092e-10 2.689854e-30 0.000000e+00 
 		\end{lstlisting}
 		\begin{itemize}
-			\item \textbf{RMSE}: 📉 $261,300 → Predictions are off by ~$261K on average.
-			\item \textbf{$R^2$}: 📊 0.5406 (54.06%) → The model explains 54% of price variation..
-			\item \textbf{P-values}: 🧪 SqFtLot is **not statistically significant (p = 0.323)`
+			\item \textbf{RMSE}:  \$249,532 Predictions are off by 261K on avg.
+			\item \textbf{$R^2$}: 📊 0.5406 (54.06\%) → The model explains 54\% of price variation..
+			\item \textbf{P-values}: 🧪 SqFtLot is not statistically significant `(A small p-value (< 0.05) means the predictor is statistically significant, while a large p-value (> 0.05) means it is not useful for prediction.)
 		\end{itemize}
 	\end{columns}
 \end{frame}
 
-	
-	\begin{frame}[fragile]{Multiple Linear Regression: Python}
-		\lstset{language=Python}
-		\begin{columns}
-			\column{0.6\textwidth}
-			\begin{itemize}
-				\item \textbf{Practice}: Models housing with multiple factors
-				\item \textbf{Key Insight}: Negative bedroom coef suggests smaller rooms hurt value
-			\end{itemize}
-			\begin{lstlisting}
-# Define predictors and outcome
-predictors = ['sqft_living', 'sqft_lot', 'bathrooms', 'grade']
-outcome = 'price'
-
-# Fit Multiple Linear Regression Model
-house_lm = LinearRegression()
-house_lm.fit(house_df[predictors], house_df[outcome])
-
-			\end{lstlisting}
-			\column{0.4\textwidth}
-			\begin{itemize}
-				\item Bedrooms vs. size tension
-			\end{itemize}
-		\end{columns}
-	\end{frame}
 	
 	% Section 2: Expanding the Scope
 	\begin{frame}{Encoding Categorical Variables in Regression Models}
@@ -278,7 +227,7 @@ house_lm.fit(house_df[predictors], house_df[outcome])
 	\end{frame}
 	
 
-	\begin{frame}[fragile]{Multiple Linear Regression: Key Findings}
+	\begin{frame}[fragile]{Multiple Linear Regression: Categorical Variables}
 		\begin{columns}
 			\column{0.9\textwidth}
 			\begin{lstlisting}

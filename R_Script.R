@@ -148,23 +148,25 @@ summary(step)
 ###### Weights regression
 library(lubridate)
 
-# Create year column from DocumentDate
-house$Year = year(house_df$DocumentDate)
+min(house_df$Year)
+
+# Convert 'date' column to Date format
+house_df$Year <- year(ymd(substr(house_df$date, 1, 8)))  # Extracts YYYYMMDD and converts to year
+
 # Compute weight (Years since 2005)
-house$Weight = house$Year - 2005
+house_df$Weight <- house_df$Year - 2005
+
 # Fit unweighted linear regression
-house_lm <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
-                 Bedrooms + BldgGrade, data=house)
+house_lm <- lm(price ~ sqft_living + sqft_lot + bathrooms +
+                 bedrooms + grade, data=house_df)
 
 # Fit weighted linear regression
-house_wt <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
-                 Bedrooms + BldgGrade, data=house, weight=Weight)
+house_wt <- lm(price ~ sqft_living + sqft_lot + bathrooms +
+                 bedrooms + grade, data=house_df, weight=Weight)
+
 # Compare coefficients of both models
 round(cbind(house_lm=house_lm$coefficients,
             house_wt=house_wt$coefficients), digits=3)
-
-
-
 
 ###############last part
 
