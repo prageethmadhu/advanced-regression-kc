@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2025.2.23)  25 FEB 2025 22:44
+This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2025.2.23)  26 FEB 2025 08:12
  restricted system commands enabled.
 **document.tex
 (./document.tex
@@ -1340,47 +1340,20 @@ File: lstlang1.sty 2024/09/23 1.10c listings language file
 [8
 
 ]
-\openout4 = document.vrb
- (./document.vrb
-Overfull \hbox (35.27771pt too wide) detected at line 37
-[][][] $[]$[][][][][][][][] $[]$[][][][][][] 
- []
-
-)
-Overfull \vbox (20.5163pt too high) detected at line 186
- []
-
-
 
 [9
 
 ]
 \openout4 = document.vrb
- (./document.vrb
-Missing character: There is no → (U+2192) in font cmss10!
-)
+ (./document.vrb)
 
 [10
 
-
-Missing character: There is no 📉 (U+1F4C9) in font [lmsans10-regular]:+tlig;!
-Missing character: There is no 📊 (U+1F4CA) in font [lmsans10-regular]:+tlig;!
-Missing character: There is no 🧪 (U+1F9EA) in font [lmsans10-regular]:+tlig;!
 ]
+\openout4 = document.vrb
+ (./document.vrb)
 
 [11
-
-]
-\openout4 = document.vrb
- (./document.vrb)
-
-[12
-
-]
-\openout4 = document.vrb
- (./document.vrb)
-
-[13
 
 
 Missing character: There is no 🏡 (U+1F3E1) in font [lmsans10-regular]:+tlig;!
@@ -1389,7 +1362,38 @@ Missing character: There is no 🌲 (U+1F332) in font [lmsans10-regular]:+tlig;!
 Missing character: There is no 🚿 (U+1F6BF) in font [lmsans10-regular]:+tlig;!
 ]
 \openout4 = document.vrb
+ (./document.vrb
+Missing character: There is no → (U+2192) in font cmss10!
+)
+Overfull \vbox (27.01396pt too high) detected at line 232
+ []
+
+
+
+[12
+
+
+Missing character: There is no 📉 (U+1F4C9) in font [lmsans10-regular]:+tlig;!
+Missing character: There is no 📊 (U+1F4CA) in font [lmsans10-regular]:+tlig;!
+Missing character: There is no 🧪 (U+1F9EA) in font [lmsans10-regular]:+tlig;!
+]
+\openout4 = document.vrb
  (./document.vrb)
+
+[13
+
+]
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 278.
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <7> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 278.
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <5> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 278.
+
+Overfull \vbox (28.5935pt too high) detected at line 278
+ []
+
+
 
 [14
 
@@ -1425,7 +1429,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 )
-Overfull \vbox (20.0266pt too high) detected at line 350
+Overfull \vbox (20.0266pt too high) detected at line 349
  []
 
 
@@ -1553,7 +1557,7 @@ If that doesn't work, type  X <return>  to quit.
 [33
 
 ]
-Overfull \vbox (6.82562pt too high) detected at line 630
+Overfull \vbox (6.82562pt too high) detected at line 629
  []
 
 
@@ -1564,7 +1568,7 @@ Overfull \vbox (6.82562pt too high) detected at line 630
 <residual_plot.png, id=236, 472.76625pt x 217.41225pt>
 File: residual_plot.png Graphic file (type png)
 <use residual_plot.png>
-Package luatex.def Info: residual_plot.png  used on input line 643.
+Package luatex.def Info: residual_plot.png  used on input line 642.
 (luatex.def)             Requested size: 196.667pt x 90.44334pt.
 
 
@@ -1593,7 +1597,7 @@ If that doesn't work, type  X <return>  to quit.
 ! Misplaced alignment tab character &.
 \beamer@doifinframe ...the model. \item Skewness &
                                                    Long Tails: The right tai...
-l.680 	\end{frame}
+l.679 	\end{frame}
                 
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -1614,7 +1618,7 @@ Missing character: There is no ✅ (U+2705) in font [lmsans9-regular]:+tlig;!
 <histo.png, id=253, 542.025pt x 313.17pt>
 File: histo.png Graphic file (type png)
 <use histo.png>
-Package luatex.def Info: histo.png  used on input line 693.
+Package luatex.def Info: histo.png  used on input line 692.
 (luatex.def)             Requested size: 196.667pt x 113.62991pt.
 
 
@@ -1675,16 +1679,16 @@ Package rerunfilecheck Info: File `document.out' has not changed.
 )
 
 Here is how much of LuaTeX's memory you used:
- 32120 strings out of 475512
- 596327,1373583 words of node,token memory allocated
+ 32122 strings out of 475512
+ 477055,1373583 words of node,token memory allocated
  3825 words of node memory still in use:
    34 hlist, 8 vlist, 5 rule, 17 disc, 4 local_par, 87 glue, 25 kern, 21 penalty
 , 213 glyph, 88 attribute, 70 glue_spec, 88 attribute_list, 4 write, 1 pdf_liter
 al, 30 pdf_colorstack nodes
-   avail lists: 1:5,2:5405,3:320,4:14342,5:13636,6:100,7:17636,8:27,9:33784,10:3
-0,11:1246
- 53979 multiletter control sequences out of 65536+600000
- 52 fonts using 4265791 bytes
+   avail lists: 1:5,2:4224,3:320,4:10394,5:9458,6:82,7:13413,8:27,9:23590,10:30,
+11:910
+ 53988 multiletter control sequences out of 65536+600000
+ 76 fonts using 6173111 bytes
  128i,13n,133p,1874b,1671s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/users/prageeth/appdata/local/programs/miktex/fonts/opentype/public/lm/lmsans
 9-regular.otf><c:/users/prageeth/appdata/local/programs/miktex/fonts/opentype/pu
@@ -1706,7 +1710,7 @@ lic/amsfonts/cm/cmss8.pfb><C:/Users/Prageeth/AppData/Local/Programs/MiKTeX/fonts
 /type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Prageeth/AppData/Local/Programs/M
 iKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Prageeth/AppData/Local/
 Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on document.pdf (43 pages, 287865 bytes).
+Output written on document.pdf (43 pages, 287718 bytes).
 
 PDF statistics: 374 PDF objects out of 1000 (max. 8388607)
  93 named destinations out of 1000 (max. 131072)

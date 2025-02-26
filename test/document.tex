@@ -146,67 +146,9 @@ simple_lm.fit(house[predictors], house[outcome])
 			\end{itemize}
 		\end{frame}
 		
-		\begin{frame}[fragile]{Finding the Best Fit: Least Squares}
-		\lstset{language=Python}
-\begin{columns}
-	\column{0.9\textwidth}
-			\begin{lstlisting}
-Coefficients:
-Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -5.957e+05  1.325e+04 -44.950  < 2e-16 ***
-sqft_living  2.065e+02  3.364e+00  61.373  < 2e-16 ***
-sqft_lot    -2.664e-01  4.171e-02  -6.388 1.71e-10 ***
-bathrooms   -3.944e+04  3.443e+03 -11.456  < 2e-16 ***
-grade        1.037e+05  2.285e+03  45.379  < 2e-16 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 249600 on 21608 degrees of freedom
-Multiple R-squared:  0.538,	Adjusted R-squared:  0.5379 
-F-statistic:  6291 on 4 and 21608 DF,  p-value: < 2.2e-16
-		\end{lstlisting}
-				
-			\begin{lstlisting}
-# R
-summary(house_lm)# Model Summary (Extracts Coefficients, p-values, R²)
-predictions <- predict(house_lm, newdata = house_df)# Extract RMSE
-residuals <- house_df$price - predictions
-RMSE <- sqrt(mean(residuals^2))
-R_squared <- summary(house_lm)$r.squared # Extract R-squared
-p_values <- summary(house_lm)$coefficients[, 4] # Extract P-values
-# Print Results
-cat("RMSE:", RMSE, "\n")
-cat("R²:", R_squared, "\n")
-cat("P-values:\n")
-print(p_values)
-			\end{lstlisting}
-			\column{0.4\textwidth}
-			
-		\end{columns}
-	\end{frame}
+	
 
 
-% Section 3: Model Performance
-\begin{frame}[fragile]{Multiple Linear Regression:Model Evaluation}
-	\begin{columns}
-		\column{0.9\textwidth}
-		\begin{lstlisting}
-> cat("RMSE:", RMSE, "\n")
-RMSE: 249532.2 
-> cat("R²:", R_squared, "\n")
-R²: 0.5380018 
-> cat("P-values:\n")
-> print(p_values)
-(Intercept)  sqft_living     sqft_lot    bathrooms        grade 
-0.000000e+00 0.000000e+00 1.711092e-10 2.689854e-30 0.000000e+00 
-		\end{lstlisting}
-		\begin{itemize}
-			\item \textbf{RMSE}: 📉 $261,300 → Predictions are off by ~$261K on average.
-			\item \textbf{$R^2$}: 📊 0.5406 (54.06%) → The model explains 54% of price variation..
-			\item \textbf{P-values}: 🧪 SqFtLot is **not statistically significant (p = 0.323)`
-		\end{itemize}
-	\end{columns}
-\end{frame}
 	
 	
 	% Section 2: Expanding the Scope
@@ -256,7 +198,38 @@ Coefficients:
 	\end{columns}
 \end{frame}
 
-
+% Section 3: Model Performance
+\begin{frame}[fragile]{Multiple Linear Regression:Model Evaluation}
+	\begin{columns}
+		\column{0.9\textwidth}
+		\begin{lstlisting}
+# R
+summary(house_lm)# Model Summary (Extracts Coefficients, p-values, R²)
+predictions <- predict(house_lm, newdata = house_df)# Extract RMSE
+residuals <- house_df$price - predictions
+RMSE <- sqrt(mean(residuals^2))
+R_squared <- summary(house_lm)$r.squared # Extract R-squared
+p_values <- summary(house_lm)$coefficients[, 4] # Extract P-values
+# Print Results
+cat("RMSE:", RMSE, "\n")
+cat("R²:", R_squared, "\n")
+cat("P-values:\n")
+print(p_values)
+		\end{lstlisting}
+		\begin{lstlisting}
+> cat("RMSE:", RMSE, "\n") | RMSE: 249532.2 
+> cat("R²:", R_squared, "\n") | R²: 0.5380018 
+> cat("P-values:\n") > print(p_values)
+(Intercept)  sqft_living     sqft_lot    bathrooms        grade 
+0.000000e+00 0.000000e+00 1.711092e-10 2.689854e-30 0.000000e+00 
+		\end{lstlisting}
+		\begin{itemize}
+			\item \textbf{RMSE}: 📉 $261,300 → Predictions are off by ~$261K on average.
+			\item \textbf{$R^2$}: 📊 0.5406 (54.06%) → The model explains 54% of price variation..
+			\item \textbf{P-values}: 🧪 SqFtLot is **not statistically significant (p = 0.323)`
+		\end{itemize}
+	\end{columns}
+\end{frame}
 
 	
 	\begin{frame}[fragile]{Multiple Linear Regression: Python}
@@ -285,25 +258,51 @@ house_lm.fit(house_df[predictors], house_df[outcome])
 	\end{frame}
 	
 	% Section 2: Expanding the Scope
-	\begin{frame}[fragile]{Factor Variables: Theory \& R}
-		\begin{columns}
-			\column{0.6\textwidth}
+	\begin{frame}{Encoding Categorical Variables in Regression Models}
+		\begin{itemize}
+			\item \textbf{Categorical variables} must be converted into numerical values for regression.
+			\item \textbf{Encoding methods:}
 			\begin{itemize}
-				\item \textbf{Theory (p. 163)}: Encodes categorical variables (e.g., property type) as binary dummies
-				\item \textbf{Why}: Allows non-numeric factors in regression; compares to a reference level
-				\item \textbf{Example}: Single-family vs. Townhouse effects
+				\item \textbf{Dummy (One-Hot) Encoding} – Creates binary columns for each category.
+				\item \textbf{Reference (Treatment) Coding} – Uses one category as a reference, keeping $P - 1$ columns.
+				\item \textbf{Deviation (Sum) Coding} – Compares each category to the overall mean.
+				\item \textbf{Ordered Factor Encoding} – Converts ordered categories into numeric values.
 			\end{itemize}
-			\begin{lstlisting}
-# R (p. 164)
-prop_type_dummies <- model.matrix(~ PropertyType - 1, data = house)
-# Output: 1 for each type present
-			\end{lstlisting}
-			\column{0.4\textwidth}
+			\item \textbf{How it’s used in regression:}
 			\begin{itemize}
-				\item Type shifts price
+				\item Each encoded category appears as a separate coefficient.
+				\item The model estimates how each category affects the outcome relative to the reference level.
+				\item For ordered factors, treating them as numeric assumes a linear relationship.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	
+
+	\begin{frame}[fragile]{Multiple Linear Regression: Key Findings}
+		\begin{columns}
+			\column{0.9\textwidth}
+			\begin{lstlisting}
+# Ensure PropertyType has a valid reference level
+house$PropertyType <- relevel(house$PropertyType, ref = "Multiplex")
+
+# Fit the regression model with the refined dataset
+house_lm <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms + BldgGrade + PropertyType, data = house)
+Coefficients:
+Estimate Std. Error t value Pr(>|t|)   
+(Intercept)               173429.87   31512.77   5.503  0.00271 **
+...
+BldgGrade                  -1442.60    6734.35  -0.214  0.83884   
+PropertyTypeSingle Family   1456.54    8063.28   0.181  0.86374   
+PropertyTypeTownhouse       9677.07   11444.71   0.846  0.43639 
+			\end{lstlisting}
+			\begin{itemize}
+				\item Sets "Multiplex" as the reference category, ensuring comparisons against it.
+				\item "Single Family" and "Townhouse" to have separate coefficients in the regression output.
 			\end{itemize}
 		\end{columns}
 	\end{frame}
+
+	
 	
 	\begin{frame}[fragile]{Factor Variables: Python}
 		\lstset{language=Python}
