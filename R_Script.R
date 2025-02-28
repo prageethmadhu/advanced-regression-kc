@@ -90,10 +90,10 @@ house <- data.frame(
 house$PropertyType <- relevel(house$PropertyType, ref = "Multiplex")
 
 # Fit the regression model with the refined dataset
-house_lm <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms + BldgGrade + PropertyType, data = house)
+house_lm_s <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms + BldgGrade + PropertyType, data = house)
 
 # Display model summary
-summary(house_lm)
+summary(house_lm_s)
 
 ##########
 

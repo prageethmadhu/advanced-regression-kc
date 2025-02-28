@@ -21,9 +21,9 @@
 
 % Title slide information
 \title{Regression \& Prediction}
-\subtitle{Theory and Practice with House Prices}
-\author{Your Name}
-\institute{xAI}
+\subtitle{Theory and Practice with House Prices Dataset}
+\author{Prageeth Godage | MSC/DSA/098}
+\institute{USJP}
 \date{February 23, 2025}
 
 \begin{document}
@@ -84,9 +84,7 @@
 				\item Assumes linearity and independence—foundation of regression
 			\end{itemize}
 			\begin{lstlisting}
-# R 
 simple_lm <- lm(AdjSalePrice ~ SqFtTotLiving, data = house_df)
-# Create the plot
 ggplot(house_df, aes(x = sqft_living, y = price)) +
 geom_point(alpha = 0.5) +  # Scatter plot
 geom_smooth(method = "lm", color = "blue", se = FALSE) +  # Regression line
@@ -95,9 +93,7 @@ x = "Size (sqft_living)",
 y = "Price") +
 theme_minimal()
 # Output: Coefficients:
-(Intercept)  sqft_living  
--43580.7        280.6 
-
+(Intercept) :-43580.7   sqft_living  : 280.6 
 			\end{lstlisting}
 			\column{0.4\textwidth}
 		\begin{figure}
@@ -114,9 +110,7 @@ theme_minimal()
 		\end{figure}
 		\end{columns}
 	\end{frame}
-	
 
-	
 	\begin{frame}{Finding the Best Fit: Least Squares}
 			\begin{itemize}
 				 \item \textbf{How do we draw that line?} We minimize the mess—sum of squared errors
@@ -125,32 +119,19 @@ theme_minimal()
 				\item \textbf{History}: Legendre (1805) and Gauss; computationally efficient but outlier-sensitive in small datasets
 			\end{itemize}
 		\end{frame}
-		
-	
-
-
-	
 	
 	% Section 2: Expanding the Scope
 	\section{Expanding the Scope}
 	
 	\begin{frame}[fragile]{More Clues: Multiple Linear Regression}
 		\begin{columns}
-			\column{0.6\textwidth}
+			\column{0.8\textwidth}
 			\begin{itemize}
 				\item \textbf{Theory}: Extends to multiple predictors: $Y = b_0 + b_1X_1 + b_2X_2 + \dots + e$
 				\item \textbf{Power}: Captures combined effects—size, lot, bedrooms—assuming linearity
 				\item \textbf{Use}: Explains complex housing dynamics
 			\end{itemize}
-			\begin{lstlisting}
-# R 
-house_lm <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
-Bedrooms + BldgGrade, data = house)
-			\end{lstlisting}
 			\column{0.4\textwidth}
-			\begin{itemize}
-				\item Size adds \$229/sq ft
-			\end{itemize}
 		\end{columns}
 	\end{frame}
 	
@@ -246,7 +227,7 @@ PropertyTypeTownhouse       9677.07   11444.71   0.846  0.43639
 			\end{lstlisting}
 			\begin{itemize}
 				\item Sets "Multiplex" as the reference category, ensuring comparisons against it.
-				\item "Single Family" and "Townhouse" to have separate coefficients in the regression output.
+				\item "Single Family","Multiplex" and "Townhouse" to have separate coefficients in the regression output.
 			\end{itemize}
 		\end{columns}
 	\end{frame}
@@ -325,27 +306,6 @@ grade + bathrooms + bedrooms, data=house_df)
 			\item Splines fit the data smoothly without unnecessary fluctuations.
 	\end{frame}
 	
-	\begin{frame}[fragile]{Nonlinear Fit: Splines in Python}
-		\lstset{language=Python}
-		\begin{columns}
-			\column{0.6\textwidth}
-			\begin{itemize}
-				\item \textbf{Practice}: Fits nonlinear price trends in zip 98105
-				\item \textbf{Key Insight}: Better matches small vs. large home value shifts
-			\end{itemize}
-			\begin{lstlisting}
-# Python (p. 190)
-import statsmodels.formula.api as smf
-formula = 'AdjSalePrice ~ bs(SqFtTotLiving, df=6, degree=3) + SqFtLot + Bathrooms + Bedrooms + BldgGrade'
-model_spline = smf.ols(formula=formula, data=house_98105).fit()
-			\end{lstlisting}
-			\column{0.4\textwidth}
-			\begin{itemize}
-				\item Curves reflect reality
-			\end{itemize}
-		\end{columns}
-	\end{frame}
-
 	
 	
 
@@ -377,6 +337,7 @@ model_spline = smf.ols(formula=formula, data=house_98105).fit()
 		\begin{itemize}
 			\item Too many clues clutter the tale. Stepwise selection trims variables, AIC balances fit and simplicity, and penalties shrink extras.
 			\item Think of it as editing: keep the essentials, cut the fluff—Occam’s razor guides us to a lean, powerful narrative.
+			\item Occam’s Razor is the principle that the simplest explanation is usually the best.
 			\item Our goal? A story that’s clear and predicts well, not a sprawling epic.
 		\end{itemize}
 	\end{frame}	
@@ -431,32 +392,6 @@ yr_renovated  8.746e+01  4.160e+00  21.022   <2e-16 ***
 	\end{columns}
 	\end{frame}
 	
-	
-	\begin{frame}[fragile]{Model Selection: Python}
-		\lstset{language=Python}
-		\begin{columns}
-			\column{0.6\textwidth}
-			\begin{itemize}
-				\item \textbf{Practice}: Automates predictor choice for housing
-				\item \textbf{Key Insight}: Reduces noise, enhances prediction
-			\end{itemize}
-			\begin{lstlisting}
-# Python (p. 158 adapted)
-from dmba import stepwise_selection
-predictors = ['SqFtTotLiving', 'SqFtLot', 'Bathrooms', 'Bedrooms', 'BldgGrade']
-def train_model(vars):
-model = LinearRegression()
-model.fit(house[vars], house[outcome])
-return model
-best_model, _ = stepwise_selection(house[predictors].columns, train_model)
-			\end{lstlisting}
-			\column{0.4\textwidth}
-			\begin{itemize}
-				\item Focused fit
-			\end{itemize}
-		\end{columns}
-	\end{frame}
-	
 	\begin{frame}[fragile]{Weighted Regression: Theory \& R}
 		\begin{columns}
 			\column{0.5\textwidth}
@@ -488,26 +423,6 @@ grade         95586.697   95883.234
 		\end{columns}
 	\end{frame}
 	
-	\begin{frame}[fragile]{Weighted Regression: Python}
-		\lstset{language=Python}
-		\begin{columns}
-			\column{0.6\textwidth}
-			\begin{itemize}
-				\item \textbf{Practice}: Weights tune housing model
-				\item \textbf{Key Insight}: Aligns predictions with market trends
-			\end{itemize}
-			\begin{lstlisting}
-# Python (p. 160)
-house['Weight'] = [int(date.split('-')[0]) for date in house.DocumentDate] - 2005
-house_wt = LinearRegression()
-house_wt.fit(house[predictors], house[outcome], sample_weight=house.Weight)
-			\end{lstlisting}
-			\column{0.4\textwidth}
-			\begin{itemize}
-				\item Fresher focus
-			\end{itemize}
-		\end{columns}
-	\end{frame}
 	
 	% Section 4: Facing Challenges
 	\section{Facing Challenges}
@@ -529,51 +444,16 @@ house_wt.fit(house[predictors], house[outcome], sample_weight=house.Weight)
 		\end{itemize}
 	\end{frame}
 	
-	\begin{frame}[fragile]{Diagnostics: Theory \& R}
-		\begin{columns}
-			\column{0.6\textwidth}
-			\begin{itemize}
-				\item \textbf{Theory (p. 176)}: Residuals reveal model flaws
-				\item \textbf{Outliers}: Extreme sales (e.g., \$119,748); \textbf{Influence}: Sway points
-				\item \textbf{Heteroskedasticity}: Uneven errors signal gaps
-			\end{itemize}
-			\begin{lstlisting}
-# R (p. 177)
-house_98105 <- house[house$ZipCode == 98105, ]
-lm_98105 <- lm(AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms +
-Bedrooms + BldgGrade, data = house_98105)
-sresid <- rstandard(lm_98105)  # -4.326732 outlier
-			\end{lstlisting}
-			\column{0.4\textwidth}
-			\begin{figure}
-				\includegraphics[width=\textwidth]{figure4-6-placeholder.pdf}
-				\caption{Influence Plot}
-			\end{figure}
-		\end{columns}
+	\begin{frame}{Spotting Flaws: Regression Diagnostics}
+		\begin{itemize}
+			\item \textbf{Outliers}, and influential points can distort the regression line—diagnostic tools help identify them.
+			\item Uneven errors (\textbf{heteroskedasticity}) or curved fits (partial residuals) hint at missing chapters.
+			\item Heteroskedasticity means that the spread (variance) of errors in a regression model changes across different values of the predictor variables.
+			\item For prediction, we care less about perfection and more about what works—our lens shifts.
+		\end{itemize}
 	\end{frame}
-	
-	\begin{frame}[fragile]{Diagnostics: Python}
-		\lstset{language=Python}
-		\begin{columns}
-			\column{0.6\textwidth}
-			\begin{itemize}
-				\item \textbf{Practice}: Identifies \$119,748 as partial sale anomaly
-				\item \textbf{Key Insight}: Diagnostics ensure robust housing predictions
-			\end{itemize}
-			\begin{lstlisting}
-# Python (p. 178)
-from statsmodels.stats.outliers_influence import OLSInfluence
-house_98105 = house[house['ZipCode'] == 98105]
-model = smf.ols('AdjSalePrice ~ SqFtTotLiving + SqFtLot + Bathrooms + Bedrooms + BldgGrade', data=house_98105).fit()
-influence = OLSInfluence(model)
-sresiduals = influence.resid_studentized
-			\end{lstlisting}
-			\column{0.4\textwidth}
-			\begin{itemize}
-				\item Spots critical flaws
-			\end{itemize}
-		\end{columns}
-	\end{frame}
+		
+
 	
 	\begin{frame}[fragile]{Influence Plot (Bubble Plot) – Identify Influential Values}
 		\begin{itemize}
@@ -658,7 +538,7 @@ plt.show()\
 			\column{0.7\textwidth}
 			\begin{figure}
 				\includegraphics[width=0.8\textwidth]{residual_plot.png}
-				\caption{Bubble plot showing influential points.}
+				\caption{Heteroskedasticity plot.}
 			\end{figure}
 		\end{columns}
 	\end{frame}
@@ -730,30 +610,6 @@ plt.show()
 \end{frame}
 	
 	% Section 5: Insights & Next Steps
-	\section{Insights \& Next Steps}
-	
-	\begin{frame}{Housing Insights}
-		\begin{itemize}
-			\item \textbf{Findings}: Linear ties price to size, splines capture nonlinear trends
-			\item \textbf{Diagnostics}: Reveal quirks like partial sales—critical for accuracy
-			\item \textbf{Application}: Real-world tool for buyers, sellers, and assessors
-		\end{itemize}
-	\end{frame}
-	
-	\begin{frame}{Key Takeaways}
-		\begin{itemize}
-			\item \textbf{Flexible}: Evolves from simple lines to complex curves for housing
-			\item \textbf{Precise}: RMSE and cross-validation ensure reliable price predictions
-			\item \textbf{Powerful}: R and Python implementations unlock data-driven insights
-		\end{itemize}
-	\end{frame}
-	
-	\begin{frame}{Looking Ahead}
-		\begin{itemize}
-			\item \textbf{Resources}: \textit{Statistical Learning} (Hastie et al.), \textit{Time Series Forecasting} (Shmueli)
-			\item \textbf{Next Steps}: Dive into splines, time series for dynamic housing models
-			\item \textbf{Call}: Blend theory and practice for smarter predictions
-		\end{itemize}
-	\end{frame}
+	\section{Thank You... ! }
 	
 \end{document}

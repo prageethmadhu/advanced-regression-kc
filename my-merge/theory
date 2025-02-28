@@ -140,7 +140,7 @@
 
 \begin{frame}{Spotting Flaws: Regression Diagnostics}
   \begin{itemize}
-    \item Every tale has flaws. Outliers (a \$119,748 mansion) and influential points shift our line—diagnostics spot them.
+    \item Outliers, and influential points can distort the regression line—diagnostic tools help identify them.
     \item Uneven errors (heteroskedasticity) or curved fits (partial residuals) hint at missing chapters.
     \item For prediction, we care less about perfection and more about what works—our lens shifts.
   \end{itemize}
